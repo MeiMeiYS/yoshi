@@ -45,58 +45,60 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   });
+
   User.associate = function(models) {
     // associations can be defined here
   };
-  return User;
-};
 
-//vvv User Model Methods
-//vvv This instance method will return an object with only the User instance information that is safe to save to a JWT
-User.prototype.toSafeObject = function() { // remember, this cannot be an arrow function
-  const { id, username, email } = this; // context will be the User instance
-  return { id, username, email };
-};
+  //vvv User Model Methods
+  //vvv This instance method will return an object with only the User instance information that is safe to save to a JWT
+  User.prototype.toSafeObject = function() { // remember, this cannot be an arrow function
+    const { id, username, email } = this; // context will be the User instance
+    return { id, username, email };
+  };
 
-//vvv This instance method will return a boolean, true is password is correct
-User.prototype.validatePassword = function (password) {
-  return bcrypt.compareSync(password, this.hashedPassword.toString());
- };
+  //vvv This instance method will return a boolean, true is password is correct
+  User.prototype.validatePassword = function (password) {
+    return bcrypt.compareSync(password, this.hashedPassword.toString());
+  };
 
- //vvv This static method will return the current user
- User.getCurrentUserById = async function (id) {
-  return await User.scope('currentUser').findByPk(id);
- };
+  //vvv This static method will return the current user
+  User.getCurrentUserById = async function (id) {
+    return await User.scope('currentUser').findByPk(id);
+  };
 
-/*vvv This static method will accept an object with a credential and password key.
-The method should search for one User with the specified credential, (a username
-or an email). If a user is found, then validate the password by passing it into
-the instance's .validatePassword method. If the password is valid, then return the
-user by using the currentUser scope. */
-User.login = async function ({ credential, password }) {
-  const { Op } = require('sequelize');
-  const user = await User.scope('loginUser').findOne({
-    where: {
-      [Op.or]: {
-        username: credential,
-        email: credential,
+  /*vvv This static method will accept an object with a credential and password key.
+  The method should search for one User with the specified credential, (a username
+  or an email). If a user is found, then validate the password by passing it into
+  the instance's .validatePassword method. If the password is valid, then return the
+  user by using the currentUser scope. */
+  User.login = async function ({ credential, password }) {
+    const { Op } = require('sequelize');
+    const user = await User.scope('loginUser').findOne({
+      where: {
+        [Op.or]: {
+          username: credential,
+          email: credential,
+        },
       },
-    },
-  });
-  if (user && user.validatePassword(password)) {
-    return await User.scope('currentUser').findByPk(user.id);
-  }
-};
+    });
+    if (user && user.validatePassword(password)) {
+      return await User.scope('currentUser').findByPk(user.id);
+    }
+  };
 
-/*vvv This static method will accept an object with a username, email and password key.
-Create a User with the username, email, and hashedPassword. Return the created user
-using the currentUser scope. */
-User.signup = async function ({ username, email, password }) {
-  const hashedPassword = bcrypt.hashSync(password);
-  const user = await User.create({
-    username,
-    email,
-    hashedPassword,
-  });
-  return await User.scope('currentUser').findByPk(user.id);
+  /*vvv This static method will accept an object with a username, email and password key.
+  Create a User with the username, email, and hashedPassword. Return the created user
+  using the currentUser scope. */
+  User.signup = async function ({ username, email, password }) {
+    const hashedPassword = bcrypt.hashSync(password);
+    const user = await User.create({
+      username,
+      email,
+      hashedPassword,
+    });
+    return await User.scope('currentUser').findByPk(user.id);
+  };
+
+  return User;
 };
