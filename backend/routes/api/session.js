@@ -1,7 +1,6 @@
 // This File Contains User Auth Routes:
 // Login: POST /api/session
 // Logout: DELETE /api/session
-// Signup: POST /api/users
 // Get session user: GET /api/session
 
 const express = require('express');
@@ -30,6 +29,14 @@ router.post('/', asyncHandler(async (req, res, next) => {
       return res.json({user});
     }),
 );
+
+// Logout: DELETE /api/session
+router.delete('/', (_req, res) => {
+    res.clearCookie('token');
+    return res.json({ message: 'success' });
+});
+
+
 
 
 module.exports = router;
