@@ -10,6 +10,9 @@ const isProduction = enviroment === 'production';
 
 const app = express();
 
+//vvv Imported Routes
+const routes = require('./routes');
+
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
@@ -32,3 +35,13 @@ app.use(
         },
     })
 );
+
+//vvv Connected Routes
+app.use(routes);
+
+
+
+
+
+
+module.exports = app;
