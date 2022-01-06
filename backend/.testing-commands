@@ -1,1 +1,17 @@
 Create DB => npx dotenv sequelize db:create
+Migrate tables => npx dotenv sequelize db:migrate
+Seed all seeder => npx dotenv sequelize db:seed:all
+
+
+
+Undo most recent seed file => npx dotenv sequelize db:seed:undo
+Undo all the seed files => npx dotenv sequelize db:seed:undo:all
+Undo all migrates => npx dotenv sequelize db:migrate:undo
+
+
+
+
+
+
+Creare migration/model => npx sequelize model:generate --name User --attributes username:string,email:string,hashedPassword:string
+Create seeder => npx sequelize seed:generate --name demo-user
