@@ -19,16 +19,17 @@ export const removeSessionUser = () => {
 };
 
 export const createSession = (credentials) => async dispatch => {
+    const { credential, password } = credentials;
     const options = {
         method: 'POST',
-        body: JSON.stringify(credentials)
+        body: JSON.stringify({ credential, password })
      };
     const response = await csrfFetch('/api/session', options)
 
     if (response.ok) {
-      const sessionUser = await response.json()
-      dispatch(setSessionUser(sessionUser))
-      return sessionUser
+      const data = await response.json()
+      dispatch(setSessionUser(data.user))
+      return data.user
     }
     //else: fail to login
 }
@@ -40,9 +41,13 @@ export const createSession = (credentials) => async dispatch => {
 const initialState = { user: null }
 
 const sessionReducer = (state = initialState, action) => {
+    let newState;
     switch (action.type) {
         case SET_SESSION_USER:{
-            return { user: action.sessionUser };
+            newState = Object.assign({}, state);
+            newState.user = action.sessionUser;
+            console.log('I am new State:', newState)
+            return newState;
         }
 
         case REMOVE_SESSION_USER:

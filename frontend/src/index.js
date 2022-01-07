@@ -17,7 +17,11 @@ if (process.env.NODE_ENV !== 'production') {
   window.csrfFetch = csrfFetch;
   window.store = store;
   window.sessionActions = sessionActions;
-
+  //vvv for browser console testing:
+  // window.store.dispatch(window.sessionActions.login({
+  //   credential: 'Demo-lition',
+  //   password: 'password'
+  // }));
 }
 
 function Root() {
