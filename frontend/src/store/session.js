@@ -18,7 +18,7 @@ export const removeSessionUser = () => {
     };
 };
 
-export const createSession = (credentials) => async dispatch => {
+export const login = (credentials) => async dispatch => {
     const { credential, password } = credentials;
     const options = {
         method: 'POST',
@@ -43,7 +43,13 @@ export const restoreSession = () => async dispatch => {
     return data.user;
 }
 
-//delete sesstion
+export const logout = () => async (dispatch) => {
+    const response = await csrfFetch('/api/session', {
+      method: 'DELETE',
+    });
+    dispatch(removeSessionUser());
+    return response;
+};
 
 export const signup = (user) => async (dispatch) => {
     const { username, email, password } = user;
@@ -72,8 +78,12 @@ const sessionReducer = (state = initialState, action) => {
             return newState;
         }
 
-        case REMOVE_SESSION_USER:
-            return {...state, entries: [...state.entries, action.article]};
+        case REMOVE_SESSION_USER:{
+            newState = Object.assign({}, state);
+            newState.user = null;
+            return newState;
+        }
+
         default:
             return state;
     };

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
 
 import './LoginForm-SignupForm.css';
-import { createSession } from "../../store/session";
+import { login } from "../../store/session";
 
 const LoginFormPage = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const LoginFormPage = () => {
   const sessionUser = useSelector((state) => state.session.user);
   // console.log('This is sessionUser:',sessionUser)
   if (sessionUser) {
-    console.log("you already logged in");
+    // console.log("you already logged in");
     return <Redirect to="/" />;
   }
 
@@ -37,7 +37,7 @@ const LoginFormPage = () => {
       password,
     };
 
-    return dispatch(createSession(loginCredentials)).catch(async (res) => {
+    return dispatch(login(loginCredentials)).catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) setErrors(data.errors);
     });

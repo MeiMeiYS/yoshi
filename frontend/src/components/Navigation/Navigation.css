@@ -1,0 +1,94 @@
+.top-nav-bar {
+    display: flex;
+    flex-direction: row;
+    background-color: #18181a;
+    width: 100vw;
+    height: 50px;
+}
+
+.profile-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none;
+    color: whitesmoke;
+    transition: all 0.3s;
+}
+
+.profile-button:hover {
+    background-color: #3a3a3d;
+}
+
+.profile-button i {
+    font-size: 20px;
+}
+
+.user-drop-down {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #18181a;
+    position: fixed;
+    right: 10px;
+    top: 40px;
+    width: 150px;
+    /* height: 100px; */
+    box-sizing: border-box;
+    border: 1px solid #3a3a3d;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-2em);
+    z-index: -1;
+    transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+}
+
+.user-drop-down.user-drop-down-open {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+    transform: translateY(0%);
+    transition-delay: 0s, 0s, 0.3s;
+    /* box-shadow: 0px 0px 4px 2px #4f4e51; */
+}
+
+.user-drop-down div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 30px;
+    margin: 10px 0;
+}
+
+.user-drop-down div a {
+    color: whitesmoke;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px;
+}
+
+.user-drop-down div:hover {
+    background-color: #3a3a3d;
+}
+
+.user-drop-down hr {
+    width: 90%;
+    margin: 10px 0;
+    border: 1px solid darkgray;
+}
+
+.user-drop-down button{
+    width: 90%;
+    font-size: 15px;
+    color: whitesmoke;
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.user-drop-down button:hover {
+    background-color: #3a3a3d;
+}
