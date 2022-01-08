@@ -34,6 +34,17 @@ export const createSession = (credentials) => async dispatch => {
     //else: fail to login
 }
 
+export const restoreSession = () => async dispatch => {
+
+    const response = await csrfFetch('/api/session')
+
+    const data = await response.json()
+    dispatch(setSessionUser(data.user))
+    return data.user
+
+    //else: fail to restore
+}
+
 //delete sesstion
 
 
