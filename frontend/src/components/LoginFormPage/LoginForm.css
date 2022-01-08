@@ -1,0 +1,136 @@
+.user-login-block {
+    background-color: rgb(57, 72, 114);
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-login-block i,
+.user-login-block h1 {
+    color: whitesmoke;
+}
+
+.user-login-block i {
+    font-size: 50px;
+    margin: 20px;
+}
+
+.user-login-block h1 {
+    font-size: 40px;
+    margin: 10px;
+}
+
+.user-login-block form {
+    width: 70%;
+    margin: 35px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-login-block form input {
+    background-color: transparent;
+    border: 1px solid #8FA4B9;
+    color: whitesmoke;
+    width: 100%;
+    height: 35px;
+    margin: 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    box-sizing: border-box;
+    padding: 0 15px;
+    transition: border 0.25s;
+}
+
+.user-login-block form input::placeholder {
+    color: whitesmoke;
+    opacity: 0.8;
+}
+
+.user-login-block form input:hover {
+    color: whitesmoke;
+    border: 1px solid whitesmoke;
+}
+
+.user-login-block form input:focus {
+    outline: none;
+}
+
+.login-errors {
+    color: rgb(239, 83, 83);
+}
+
+.user-login-block form button {
+    background-color: #6441a5;
+    color: whitesmoke;
+    width: 100%;
+    height: 35px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px #312548;
+    outline: none;
+    border: none;
+    transition: 0.3s;
+}
+
+.user-login-block form button:disabled {
+    color: grey;
+    background-color: rgb(175, 174, 174);
+    box-shadow: 0 0px #666;
+    transform: translateY(4px);
+}
+
+.user-login-block form button:hover:enabled {
+    background-color: #6c41ba;
+}
+
+.user-login-block form button:active {
+    background-color: #6c41ba;
+    box-shadow: 0 0px #666;
+    transform: translateY(4px);
+}
+
+.new-account-link {
+    text-decoration: none;
+    color: whitesmoke;
+    font-size: 15px;
+    margin: 10px 0;
+    cursor: pointer;
+    display: inline-flex;
+    padding-top: 10px;
+}
+
+div.link-container,
+link-container > .new-account-link {
+    position: relative;
+    color: whitesmoke;
+    text-decoration: none;
+    line-height: 8px;
+    overflow: hidden;
+    /* background-color: hotpink; */
+}
+
+.new-account-link:before,
+.new-account-link:after,
+.new-account-link > link-container:before,
+.new-account-link > link-container:after {
+    content: '';
+    position: absolute;
+    transition: transform .5s ease;
+}
+
+.new-account-link:before {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: whitesmoke;
+    transform: translateX(-110%);
+}
+
+.new-account-link:hover:before {
+    transform: translateX(0);
+}

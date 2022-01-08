@@ -1,65 +1,76 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, Redirect } from "react-router-dom";
 
+import './LoginForm.css';
 import { createSession } from "../../store/session";
 
 const LoginFormPage = () => {
-    const dispatch = useDispatch();
-    const history = useHistory();
+  const dispatch = useDispatch();
 
-    const [ credential, setCredential ] = useState('');
-    const [ password, setPassword ] = useState('');
-    const [ formInvalid, setFormInvalid ] = useState(true);
+  const [credential, setCredential] = useState("");
+  const [password, setPassword] = useState("");
+  const [formInvalid, setFormInvalid] = useState(true);
+  const [errors, setErrors] = useState([]);
 
-    useEffect(() => {
-        if (credential.length < 3 || credential.length > 256) setFormInvalid(true);
-        else if (!password) setFormInvalid(true);
-        else setFormInvalid(false);
-    }, [credential, password])
+  useEffect(() => {
+    if (credential.length < 3 || credential.length > 256) setFormInvalid(true);
+    else if (!password) setFormInvalid(true);
+    else setFormInvalid(false);
+  }, [credential, password]);
 
+  const sessionUser = useSelector((state) => state.session.user);
+  // console.log('This is sessionUser:',sessionUser)
+  if (sessionUser) {
+    console.log("you already logged in");
+    return <Redirect to="/" />;
+  }
 
-    const handleSubmit = e => {
-        e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        const loginCredentials = {
-            credential,
-            password
-        }
+    const loginCredentials = {
+      credential,
+      password,
+    };
 
-        const user = dispatch(createSession(loginCredentials));
-        if (user){
-            history.push('/');
-        }
+    return dispatch(createSession(loginCredentials)).catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) setErrors(data.errors);
+    });
+  };
 
-    }
-
-    return (
-        <div>
-            <h1>LoginFormPage</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <input
-                        placeholder="Username or Email"
-                        value={credential}
-                        onChange={e => setCredential(e.target.value)}
-                    ></input>
-                </div>
-                <div>
-                    <input
-                        placeholder="Password"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                    ></input>
-                </div>
-                <button
-                    type="submit"
-                    disabled={formInvalid}
-                >Login</button>
-            </form>
+  return (
+    <div className="user-login-block">
+      <form onSubmit={handleSubmit}>
+        <h1>Login</h1>
+        <i className="fas fa-user"></i>
+        <input
+        type='text'
+        placeholder="Username or Email"
+        value={credential}
+        onChange={(e) => setCredential(e.target.value)}
+        required
+        ></input>
+        <input
+        type='password'
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+        ></input>
+        <ul className="login-errors">
+          {errors.map((error, i) => (
+            <li key={i}>{error}</li>
+          ))}
+        </ul>
+        <button type="submit" disabled={formInvalid}>Login</button>
+        <div className="link-container">
+            <NavLink className="new-account-link" to='/'>Create a New Account</NavLink>
         </div>
-
-    )
-}
+      </form>
+    </div>
+  );
+};
 
 export default LoginFormPage;
