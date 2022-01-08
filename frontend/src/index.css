@@ -1,4 +1,12 @@
-/* TODO Add site wide styles */
+:root {
+    --base-dark: #18181a;
+    --base-dark-hover: #3a3a3d;
+    --base-dark-hover2: #48484b;
+    --main-purple: #6441a5;
+    --main-purple-hover: #764bc8;
+  }
+
+
 * {
     padding: 0;
     margin: 0;

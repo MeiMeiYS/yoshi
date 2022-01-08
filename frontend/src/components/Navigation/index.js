@@ -20,11 +20,26 @@ const Navigation = () => {
 
     return (
         <nav className='top-nav-bar'>
-            {sessionUser ? <h1>Hi! {sessionUser.username}</h1> : <h1>Hi! Stranger</h1>}
-            <NavLink exact to={`/`}>Home</NavLink>
-            <NavLink to={`/login`}>Login</NavLink>
-            <NavLink to={`/signup`}>Signup</NavLink>
-            <ProfileButton sessionUser={sessionUser}/>
+            <div className='top-brand-logo'>
+                <NavLink exact to={`/`}>App name here</NavLink>
+            </div>
+            <div className='top-search-bar'>
+                <input
+                    placeholder='Search'>
+                    {/* To Do: make is a controled input */}
+                </input>
+                <button><i className="fas fa-search"></i></button>
+            </div>
+            <div className='top-user-section'>
+                {sessionUser ? <span>Hi! {sessionUser.username}</span> : <span>Hi! Stranger</span>}
+                <div className='top-nav-btn top-nav-login-btn'>
+                    <NavLink to={`/login`}>Login</NavLink>
+                </div>
+                <div className='top-nav-btn top-nav-signup-btn'>
+                    <NavLink to={`/signup`}>Signup</NavLink>
+                </div>
+                <ProfileButton sessionUser={sessionUser}/>
+            </div>
 
         </nav>
     )

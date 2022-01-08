@@ -1,9 +1,83 @@
 .top-nav-bar {
     display: flex;
     flex-direction: row;
-    background-color: #18181a;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--base-dark);
     width: 100vw;
     height: 50px;
+}
+
+div.top-brand-logo {
+ margin-left: 20px;
+}
+
+div.top-brand-logo a{
+    color: whitesmoke;
+}
+
+/* --------top search bar section--------*/
+.top-search-bar {
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--base-dark-hover);
+}
+
+.top-search-bar input {
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+}
+
+
+/* --------top right user buttons section--------*/
+.top-user-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: whitesmoke;
+    margin-right: 20px;
+}
+
+.top-nav-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 65px;
+    height: 30px;
+    margin: 10px 8px;
+    border-radius: 5px;
+}
+
+.top-nav-login-btn {
+    background-color: var(--base-dark-hover);
+    transition: 0.25s;
+}
+
+.top-nav-login-btn:hover {
+    background-color: var(--base-dark-hover2);
+}
+
+.top-nav-signup-btn {
+    background-color: var(--main-purple);
+    transition: 0.25s;
+}
+
+.top-nav-signup-btn:hover {
+    background-color: var(--main-purple-hover);
+}
+
+.top-user-section div a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px;
+    height: 100%;
+    width: 100%;
 }
 
 .profile-button {
@@ -17,7 +91,7 @@
 }
 
 .profile-button:hover {
-    background-color: #3a3a3d;
+    background-color: var(--base-dark-hover2);
 }
 
 .profile-button i {
@@ -28,14 +102,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #18181a;
+    background-color: var(--base-dark);
     position: fixed;
     right: 10px;
     top: 40px;
     width: 150px;
     /* height: 100px; */
     box-sizing: border-box;
-    border: 1px solid #3a3a3d;
+    border: 1px solid var(--base-dark-hover);
     border-radius: 5px;
     visibility: hidden;
     opacity: 0;
@@ -63,14 +137,19 @@
 }
 
 .user-drop-down div a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: whitesmoke;
     text-decoration: none;
     font-size: 15px;
     padding: 10px;
+    height: 100%;
+    width: 100%;
 }
 
 .user-drop-down div:hover {
-    background-color: #3a3a3d;
+    background-color: var(--base-dark-hover);
 }
 
 .user-drop-down hr {
@@ -87,8 +166,9 @@
     border: none;
     padding: 10px;
     margin: 10px 0;
+    cursor: pointer;
 }
 
 .user-drop-down button:hover {
-    background-color: #3a3a3d;
+    background-color: var(--base-dark-hover);
 }

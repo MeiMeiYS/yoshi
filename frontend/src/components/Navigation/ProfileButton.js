@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -16,16 +16,32 @@ const ProfileButton = ({ sessionUser }) => {
     }
 
     const handleLogout = e => {
+        e.preventDefault();
         dispatch(logout());
         history.push('/');
     }
+
+    useEffect(() => {
+        //vvv if menu is closed, return
+        if (!showUserMenu) return ;
+
+        //vvv if menu is opened, attached event listener
+        const closeMenu = () => {
+            setShowUserMenu(false);
+            console.log('close menu')
+          };
+        document.addEventListener('click', closeMenu);
+
+        //vvv clean up function to remove event listener
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showUserMenu])
 
     return (
         <>
         <button type='button' className="profile-button" onClick={handleShowUserMenu}>
             <i className="fas fa-user"></i>
         </button>
-        <div className={`user-drop-down ${ !showUserMenu && "user-drop-down-open" }`}>
+        <div className={`user-drop-down ${ showUserMenu && "user-drop-down-open" }`}>
             {sessionUser ?
                 <button type='button' onClick={handleLogout}>Logout</button> :
                 <>
