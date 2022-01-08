@@ -32,12 +32,16 @@ const Navigation = () => {
             </div>
             <div className='top-user-section'>
                 {sessionUser ? <span>Hi! {sessionUser.username}</span> : <span>Hi! Stranger</span>}
-                <div className='top-nav-btn top-nav-login-btn'>
-                    <NavLink to={`/login`}>Login</NavLink>
-                </div>
-                <div className='top-nav-btn top-nav-signup-btn'>
-                    <NavLink to={`/signup`}>Signup</NavLink>
-                </div>
+                {sessionUser ? null :
+                    <>
+                        <div className='top-nav-btn top-nav-login-btn'>
+                            <NavLink to={`/login`}>Login</NavLink>
+                        </div>
+                        <div className='top-nav-btn top-nav-signup-btn'>
+                            <NavLink to={`/signup`}>Signup</NavLink>
+                        </div>
+                    </>
+                }
                 <ProfileButton sessionUser={sessionUser}/>
             </div>
 

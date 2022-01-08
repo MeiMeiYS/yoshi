@@ -40,6 +40,10 @@ div.top-brand-logo a{
     margin-right: 20px;
 }
 
+.top-user-section span{
+    margin-right: 10px;
+}
+
 .top-nav-btn {
     display: flex;
     justify-content: center;
