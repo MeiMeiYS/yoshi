@@ -40,14 +40,25 @@ export const restoreSession = () => async dispatch => {
 
     const data = await response.json()
     dispatch(setSessionUser(data.user))
-    return data.user
-
-    //else: fail to restore
+    return data.user;
 }
 
 //delete sesstion
 
-
+export const signup = (user) => async (dispatch) => {
+    const { username, email, password } = user;
+    const response = await csrfFetch("/api/users", {
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        email,
+        password,
+      }),
+    });
+    const data = await response.json();
+    dispatch(setSessionUser(data.user));
+    return data.user;
+};
 
 const initialState = { user: null }
 

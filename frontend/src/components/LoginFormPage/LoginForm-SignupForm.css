@@ -1,4 +1,4 @@
-.user-login-block {
+.user-login-signin-block {
     background-color: rgb(57, 72, 114);
     width: 80vw;
     display: flex;
@@ -7,22 +7,22 @@
     align-items: center;
 }
 
-.user-login-block i,
-.user-login-block h1 {
+.user-login-signin-block i,
+.user-login-signin-block h1 {
     color: whitesmoke;
 }
 
-.user-login-block i {
+.user-login-signin-block i {
     font-size: 50px;
     margin: 20px;
 }
 
-.user-login-block h1 {
+.user-login-signin-block h1 {
     font-size: 40px;
     margin: 10px;
 }
 
-.user-login-block form {
+.user-login-signin-block form {
     width: 70%;
     margin: 35px 0;
     display: flex;
@@ -30,7 +30,7 @@
     align-items: center;
 }
 
-.user-login-block form input {
+.user-login-signin-block form input {
     background-color: transparent;
     border: 1px solid #8FA4B9;
     color: whitesmoke;
@@ -44,25 +44,31 @@
     transition: border 0.25s;
 }
 
-.user-login-block form input::placeholder {
+.user-login-signin-block form input::placeholder {
     color: whitesmoke;
     opacity: 0.8;
 }
 
-.user-login-block form input:hover {
+.user-login-signin-block form input:hover {
     color: whitesmoke;
     border: 1px solid whitesmoke;
 }
 
-.user-login-block form input:focus {
+.user-login-signin-block form input:focus {
     outline: none;
 }
 
-.login-errors {
+.login-errors, .validation-error {
     color: rgb(239, 83, 83);
+    align-self: flex-start;
+    list-style-type: none;
 }
 
-.user-login-block form button {
+.hidden {
+    visibility:hidden;
+}
+
+.user-login-signin-block form button {
     background-color: #6441a5;
     color: whitesmoke;
     width: 100%;
@@ -76,18 +82,18 @@
     transition: 0.3s;
 }
 
-.user-login-block form button:disabled {
+.user-login-signin-block form button:disabled {
     color: grey;
     background-color: rgb(175, 174, 174);
     box-shadow: 0 0px #666;
     transform: translateY(4px);
 }
 
-.user-login-block form button:hover:enabled {
+.user-login-signin-block form button:hover:enabled {
     background-color: #6c41ba;
 }
 
-.user-login-block form button:active {
+.user-login-signin-block form button:active {
     background-color: #6c41ba;
     box-shadow: 0 0px #666;
     transform: translateY(4px);

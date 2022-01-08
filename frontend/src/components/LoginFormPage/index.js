@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
 
-import './LoginForm.css';
+import './LoginForm-SignupForm.css';
 import { createSession } from "../../store/session";
 
 const LoginFormPage = () => {
@@ -10,13 +10,16 @@ const LoginFormPage = () => {
 
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
-  const [formInvalid, setFormInvalid] = useState(true);
+
+  const [ formIsvalid, setFormIsvalid ] = useState(false);
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    if (credential.length < 3 || credential.length > 256) setFormInvalid(true);
-    else if (!password) setFormInvalid(true);
-    else setFormInvalid(false);
+    setFormIsvalid(true);
+
+
+    if ( !credential || !password ) setFormIsvalid(false);
+    if (credential.length < 3 || credential.length > 256) setFormIsvalid(false);
   }, [credential, password]);
 
   const sessionUser = useSelector((state) => state.session.user);
@@ -41,7 +44,7 @@ const LoginFormPage = () => {
   };
 
   return (
-    <div className="user-login-block">
+    <div className="user-login-signin-block">
       <form onSubmit={handleSubmit}>
         <h1>Login</h1>
         <i className="fas fa-user"></i>
@@ -64,9 +67,10 @@ const LoginFormPage = () => {
             <li key={i}>{error}</li>
           ))}
         </ul>
-        <button type="submit" disabled={formInvalid}>Login</button>
+        <button type="submit" disabled={!formIsvalid}>Login</button>
+        <button type="button" >Demo Site</button>
         <div className="link-container">
-            <NavLink className="new-account-link" to='/'>Create a New Account</NavLink>
+            <NavLink className="new-account-link" to='/signup'>Create a New Account</NavLink>
         </div>
       </form>
     </div>
