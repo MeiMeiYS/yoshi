@@ -72,6 +72,8 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId'
     }
     User.belongsTo(models.Party, partyUserMapping);
+
+    User.hasMany(models.PartyChat, { foreignKey: 'userId' });
   };
 
   //vvv User Model Methods

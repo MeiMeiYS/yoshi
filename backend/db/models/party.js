@@ -57,6 +57,8 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'partyId'
     }
     Party.belongsTo(models.User, partyUserMapping);
+
+    Party.hasMany(models.PartyChat, { foreignKey: 'partyId' });
   };
 
   Party.getAllParties = async function () {
