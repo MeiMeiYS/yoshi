@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Genre.associate = function(models) {
     // associations can be defined here
+    Genre.hasMany(models.Videogame, { foreignKey: 'genreId' });
   };
 
   Genre.getAllGenres = async function () {

@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Platform.associate = function(models) {
     // associations can be defined here
+    Platform.hasMany(models.Videogame, { foreignKey: 'genreId' });
   };
 
   Platform.getAllPlatforms = async function () {
