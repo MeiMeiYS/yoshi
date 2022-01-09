@@ -32,6 +32,12 @@ module.exports = (sequelize, DataTypes) => {
         len: [60, 60]
       },
     },
+    imageId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: { model: 'Images' },
+      defaultValue: 1
+    }
   }, {
     defaultScope: {
       attributes: {
@@ -50,6 +56,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = function(models) {
     // associations can be defined here
+    User.belongsTo(models.Image, {foreignKey: 'imageId'});
   };
 
   //vvv User Model Methods
