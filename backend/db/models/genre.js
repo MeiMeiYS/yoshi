@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
   };
 
-  Genre.getAllGenre = async function () {
+  Genre.getAllGenres = async function () {
     return await Genre.findAll();
   };
 

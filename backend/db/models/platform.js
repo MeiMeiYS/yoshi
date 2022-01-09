@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
   };
 
-  Platform.getAllPlatform = async function () {
+  Platform.getAllPlatforms = async function () {
     return await Platform.findAll();
   };
 
