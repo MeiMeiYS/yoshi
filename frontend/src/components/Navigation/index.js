@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
 import './Navigation.css';
+import favicon from '../../images/favicon.png';
+import logo from '../../images/yoshi-logo2.png';
 import { restoreSession } from '../../store/session';
 
 import ProfileButton from './ProfileButton';
@@ -21,7 +23,10 @@ const Navigation = () => {
     return (
         <nav className='top-nav-bar'>
             <div className='top-brand-logo'>
-                <NavLink exact to={`/`}>App name here</NavLink>
+                <NavLink exact to={`/`}>
+                    <img className='top-nav-favicon' src={favicon}></img>
+                    <img className='top-nav-logo' src={logo}></img>
+                </NavLink>
             </div>
             <div className='top-search-bar'>
                 <input
@@ -31,7 +36,7 @@ const Navigation = () => {
                 <button><i className="fas fa-search"></i></button>
             </div>
             <div className='top-user-section'>
-                {sessionUser ? <span>Hi! {sessionUser.username}</span> : <span>Hi! Stranger</span>}
+                {sessionUser && <span>Hi! {sessionUser.username}</span>}
                 {sessionUser ? null :
                     <>
                         <div className='top-nav-btn top-nav-login-btn'>

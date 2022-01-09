@@ -11,6 +11,7 @@ const ProfileButton = ({ sessionUser }) => {
     const dropDownMenu = useRef();
     const loginBtn = useRef();
     const signupBtn = useRef();
+    const logoutBtn = useRef();
 
     const [ showUserMenu, setShowUserMenu ] = useState(false);
 
@@ -35,8 +36,11 @@ const ProfileButton = ({ sessionUser }) => {
                 setShowUserMenu(false);
             }
             // if click on login or sign up button in downdown menu, the menu will close
-            if (loginBtn.current.contains(e.target) || signupBtn.current.contains(e.target)){
-                setShowUserMenu(false);
+            if ( loginBtn?.current?.contains(e.target) ||
+                signupBtn?.current?.contains(e.target) ||
+                logoutBtn?.current?.contains(e.target) ){
+                    console.log('ckdjkknf')
+                    setShowUserMenu(false);
             }
         };
         document.addEventListener('click', closeMenu);
@@ -52,7 +56,13 @@ const ProfileButton = ({ sessionUser }) => {
         </button>
         <div ref={dropDownMenu} className={`user-drop-down ${ showUserMenu && "user-drop-down-open" }`}>
             {sessionUser ?
-                <button type='button' onClick={handleLogout}>Logout</button> :
+                <>
+                    <div id="user-dropdown-greeting">
+                        <p>Hi! {sessionUser.username}</p>
+                    </div>
+                    <hr/>
+                    <button ref={logoutBtn} type='button' onClick={handleLogout}>Logout</button>
+                </> :
                 <>
                     <div id='dropdown-search-bar'>
                         <input

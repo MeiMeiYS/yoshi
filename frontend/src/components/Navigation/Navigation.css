@@ -9,11 +9,21 @@
 }
 
 div.top-brand-logo {
- margin-left: 20px;
+    margin-left: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    width: 40%;
 }
 
-div.top-brand-logo a{
-    color: whitesmoke;
+.top-nav-favicon {
+    height: 80%;
+    margin-top: 5px;
+}
+
+.top-nav-logo {
+    height: 80%;
+    /* width: 100px; */
 }
 
 /* --------top search bar section--------*/
@@ -71,6 +81,8 @@ div.top-brand-logo a{
 
 .top-user-section span{
     margin-right: 10px;
+    text-align: end;
+    width: 200px;
 }
 
 .top-nav-btn {
@@ -132,7 +144,7 @@ div.top-brand-logo a{
 }
 
 .user-drop-down {
-    display: flex;
+    display: hidden;
     flex-direction: column;
     align-items: center;
     background-color: var(--base-dark);
@@ -144,7 +156,7 @@ div.top-brand-logo a{
     box-sizing: border-box;
     border: 1px solid var(--base-dark-hover);
     border-radius: 5px;
-    visibility: hidden;
+    /* visibility: hidden; */
     opacity: 0;
     transform: translateY(-2em);
     z-index: -1;
@@ -152,6 +164,7 @@ div.top-brand-logo a{
 }
 
 .user-drop-down.user-drop-down-open {
+    display: flex;
     visibility: visible;
     opacity: 1;
     z-index: 1;
@@ -187,6 +200,17 @@ div.top-brand-logo a{
     outline: none;
     background-color: black;
     border: 2px solid var(--main-purple-focus);
+}
+
+#user-dropdown-greeting {
+    display: none;
+    width: 90%;
+    height: 30px;
+    margin: 10px 0 0 0;
+}
+
+#user-dropdown-greeting:hover {
+    background-color: var(--base-dark);
 }
 
 .user-drop-down hr {
@@ -256,7 +280,15 @@ div.top-brand-logo a{
         display: none;
     }
 
+    div.top-brand-logo {
+        width: 50%;
+    }
+
     .top-nav-btn {
+        display: none;
+    }
+
+    .top-user-section span{
         display: none;
     }
 
@@ -266,6 +298,10 @@ div.top-brand-logo a{
 
     .user-drop-down hr {
         display: inline-block;
+    }
+
+    #user-dropdown-greeting {
+        display: flex;
     }
 }
 
