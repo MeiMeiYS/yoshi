@@ -1,0 +1,6 @@
+footer {
+    background-color: var(--base-dark);
+    color: whitesmoke;
+    width: 100vw;
+    height: 20vh;
+}

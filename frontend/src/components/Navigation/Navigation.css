@@ -18,18 +18,47 @@ div.top-brand-logo a{
 
 /* --------top search bar section--------*/
 .top-search-bar {
-    height: 30px;
     display: flex;
     flex-direction: row;
-    background-color: var(--base-dark-hover);
+    margin: 10px 0;
+    border-radius: 5px;
+    height: 30px;
+    max-width: 400px;
+    width: 40vw;
 }
 
 .top-search-bar input {
-    height: 100%;
+    background-color: var(--input-background);
+    border: none;
+    border-radius: 5px;
+    color: whitesmoke;
     width: 100%;
-    background-color: transparent;
+    height: 100%;
+    padding: 0 15px;
 }
 
+.top-search-bar button {
+    background-color: transparent;
+    position: relative;
+    right: 35px;
+    /* width: 40px; */
+    height: 100%;
+    border: none;
+    box-shadow: none;
+    color: whitesmoke;
+    padding: 0 10px;
+}
+
+.top-search-bar input::placeholder {
+    color: whitesmoke;
+    opacity: 0.8;
+}
+
+.top-search-bar input:focus {
+    outline: none;
+    background-color: black;
+    border: 2px solid var(--main-purple-focus);
+}
 
 /* --------top right user buttons section--------*/
 .top-user-section {
@@ -110,7 +139,7 @@ div.top-brand-logo a{
     position: fixed;
     right: 10px;
     top: 40px;
-    width: 150px;
+    width: 200px;
     /* height: 100px; */
     box-sizing: border-box;
     border: 1px solid var(--base-dark-hover);
@@ -129,6 +158,42 @@ div.top-brand-logo a{
     transform: translateY(0%);
     transition-delay: 0s, 0s, 0.3s;
     /* box-shadow: 0px 0px 4px 2px #4f4e51; */
+}
+
+#dropdown-search-bar {
+    display: none;
+    background-color: var(--input-background);
+    flex-direction: row;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+#dropdown-search-bar input {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    color: whitesmoke;
+    width: 100%;
+    height: 35px;
+    padding: 0 15px;
+}
+
+#dropdown-search-bar input::placeholder {
+    color: whitesmoke;
+    opacity: 0.8;
+}
+
+#dropdown-search-bar input:focus {
+    outline: none;
+    background-color: black;
+    border: 2px solid var(--main-purple-focus);
+}
+
+.user-drop-down hr {
+    display: none;
+    height: 1px;
+    width: 80%;
+    background-color: var(--base-dark-hover);
 }
 
 .user-drop-down div {
@@ -175,4 +240,54 @@ div.top-brand-logo a{
 
 .user-drop-down button:hover {
     background-color: var(--base-dark-hover);
+}
+
+
+
+/* ------------------media query------------------ */
+
+/* small */
+@media (max-width: 576px) {
+    /* .top-nav-bar {
+        background-color: thistle;
+    } */
+
+    .top-search-bar {
+        display: none;
+    }
+
+    .top-nav-btn {
+        display: none;
+    }
+
+    #dropdown-search-bar {
+        display: flex;
+    }
+
+    .user-drop-down hr {
+        display: inline-block;
+    }
+}
+
+/* Medium */
+@media (max-width: 768px) {
+    .top-search-bar {
+        display: none;
+    }
+
+}
+
+/* Large */
+@media (max-width: 992px) {
+
+}
+
+/* Extra large */
+@media (max-width: 1200px) {
+
+}
+
+/* Extra extra large */
+@media (max-width: 1400px) {
+
 }

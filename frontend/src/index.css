@@ -4,6 +4,9 @@
     --base-dark-hover2: #48484b;
     --main-purple: #6441a5;
     --main-purple-hover: #764bc8;
+    --main-purple-focus: #6c41ba;
+    --input-background: #464649;
+    --input-border-hover: #8fa4b9;
   }
 
 
@@ -11,6 +14,7 @@
     padding: 0;
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
 }
 
 main {
@@ -20,6 +24,7 @@ main {
     flex-direction: column;
     align-items: center;
 }
+
 
 /* .no-display {
     display: none;

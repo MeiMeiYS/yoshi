@@ -32,7 +32,7 @@
 }
 
 .user-login-signin-block form input {
-    background-color: #464649;
+    background-color: var(--input-background);
     border: none;
     color: whitesmoke;
     width: 100%;
@@ -52,13 +52,13 @@
 
 .user-login-signin-block form input:hover {
     color: whitesmoke;
-    border: 1px solid #8fa4b9;
+    border: 1px solid var(--input-border-hover);
 }
 
 .user-login-signin-block form input:focus {
     outline: none;
     background-color: black;
-    border: 2px solid #6c41ba;
+    border: 2px solid var(--main-purple-focus);
 }
 
 .login-errors, .validation-error {
