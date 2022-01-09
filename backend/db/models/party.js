@@ -43,6 +43,13 @@ module.exports = (sequelize, DataTypes) => {
     Party.belongsTo(models.VideoGame, { foreignKey: 'gameId' });
     Party.belongsTo(models.User, { foreignKey: 'ownerId' });
     Party.belongsTo(models.Image, { foreignKey: 'imageId' });
+
+    const requestMapping = {
+      through: 'Request',
+      otherKey: 'userId',
+      foreignKey: 'partyId'
+    }
+    Party.belongsTo(models.User, requestMapping);
   };
 
   Party.getAllParties = async function () {

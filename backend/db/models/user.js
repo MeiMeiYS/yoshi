@@ -58,6 +58,13 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     User.belongsTo(models.Image, {foreignKey: 'imageId'});
     User.hasMany(models.Party, { foreignKey: 'ownerId' });
+
+    const requestMapping = {
+      through: 'Request',
+      otherKey: 'partyId',
+      foreignKey: 'userId'
+    }
+    User.belongsTo(models.Party, requestMapping);
   };
 
   //vvv User Model Methods
