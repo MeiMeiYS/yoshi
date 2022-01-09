@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     gameId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {model: 'VideoGames'}
+      references: {model: 'Videogames'}
     },
     ownerId: {
       type: DataTypes.INTEGER,

@@ -4,7 +4,7 @@ Seed all seeder => npx dotenv sequelize db:seed:all
 
 
 Undo all the seed files => npx dotenv sequelize db:seed:undo:all
-Undo all migrates => npx dotenv sequelize db:migrate:undo
+Undo all migrates => npx dotenv sequelize db:migrate:undo:all
 
 
 

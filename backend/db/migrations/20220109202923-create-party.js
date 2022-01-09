@@ -28,7 +28,7 @@ module.exports = {
       gameId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: {model: 'VideoGames'}
+        references: {model: 'Videogames'}
       },
       ownerId: {
         allowNull: false,
