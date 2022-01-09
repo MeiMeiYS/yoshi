@@ -1,6 +1,51 @@
 footer {
     background-color: var(--base-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     color: whitesmoke;
     width: 100vw;
-    height: 20vh;
+    height: 190px;
+    padding: 20px 0 10px 0;
+}
+
+.footer-explore {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-explore h4 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.footer-links button {
+    background-color: transparent;
+    border: 1px solid whitesmoke;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.footer-links button:hover{
+    background-color: var(--base-dark-hover);
+}
+
+.footer-links button i {
+    color: whitesmoke;
+    font-size: 25px;
 }
