@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: true,
+      allowNull: false,
     },
     genreId: {
       type: DataTypes.INTEGER,
@@ -29,11 +29,13 @@ module.exports = (sequelize, DataTypes) => {
       references: {model: 'Images'}
     }
   }, {});
+
   Videogame.associate = function(models) {
     // associations can be defined here
     Videogame.belongsTo(models.Genre, { foreignKey: 'genreId' });
     Videogame.belongsTo(models.Platform, { foreignKey: 'platformId' });
     Videogame.belongsTo(models.Image, { foreignKey: 'imageId' });
+    Videogame.hasMany(models.Party, { foreignKey: 'gameId' });
   };
 
   Videogame.getAllVideogames = async function () {

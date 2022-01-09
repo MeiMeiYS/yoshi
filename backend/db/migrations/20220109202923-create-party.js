@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Videogames', {
+    return queryInterface.createTable('Parties', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -17,15 +17,23 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT
       },
-      genreId: {
+      space: {
         allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {model: 'Genres'}
+        type: Sequelize.INTEGER
       },
-      platformId: {
+      openStatus: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
+      },
+      gameId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: {model: 'Platforms'}
+        references: {model: 'VideoGames'}
+      },
+      ownerId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {model: 'Users'}
       },
       imageId: {
         allowNull: false,
@@ -45,6 +53,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Videogames');
+    return queryInterface.dropTable('Parties');
   }
 };
