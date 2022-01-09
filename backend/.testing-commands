@@ -3,8 +3,6 @@ Migrate tables => npx dotenv sequelize db:migrate
 Seed all seeder => npx dotenv sequelize db:seed:all
 
 
-
-Undo most recent seed file => npx dotenv sequelize db:seed:undo
 Undo all the seed files => npx dotenv sequelize db:seed:undo:all
 Undo all migrates => npx dotenv sequelize db:migrate:undo
 
