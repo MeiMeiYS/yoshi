@@ -65,6 +65,13 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId'
     }
     User.belongsTo(models.Party, requestMapping);
+
+    const partyUserMapping = {
+      through: 'PartyUser',
+      otherKey: 'partyId',
+      foreignKey: 'userId'
+    }
+    User.belongsTo(models.Party, partyUserMapping);
   };
 
   //vvv User Model Methods
