@@ -71,11 +71,13 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Party.getAllParties = async function () {
-    return await Party.findAll();
+    const { Videogame, User, Image } = this.associations;
+    return await Party.findAll({ include: [Videogame, User, Image] });
   };
 
   Party.getPartyById = async function (id) {
-    return await Party.findByPk(id);
+    const { Videogame, User, Image } = this.associations;
+    return await Party.findByPk(id, { include: [Videogame, User, Image] });
   };
 
   return Party;
