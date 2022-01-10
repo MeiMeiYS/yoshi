@@ -1,4 +1,7 @@
 'use strict';
+// const db = require('./index');
+// console.log('!!!!!!!!!!!!!!!!', db.Image)
+
 module.exports = (sequelize, DataTypes) => {
   const Videogame = sequelize.define('Videogame', {
     name: {
@@ -48,11 +51,13 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Videogame.getAllVideogames = async function () {
-    return await Videogame.findAll();
+    const { Genre, Platform, Image } = this.associations;
+    return await Videogame.findAll({ include: [Genre, Platform, Image] });
   };
 
   Videogame.getVideogameById = async function (id) {
-    return await Videogame.findByPk(id);
+    const { Genre, Platform, Image } = this.associations;
+    return await Videogame.findByPk(id, { include: [Genre, Platform, Image] });
   };
 
   return Videogame;
