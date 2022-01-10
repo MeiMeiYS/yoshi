@@ -24,23 +24,32 @@ module.exports = (sequelize, DataTypes) => {
     gameId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {model: 'Videogames'}
+      references: {
+        model: 'Videogames',
+        key: 'id'
+      },
     },
     ownerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {model: 'Users'}
+      references: {
+        model: 'Users',
+        key: 'id'
+      },
     },
     imageId: {
       type: DataTypes.INTEGER,
       allowNull: true,
-      references: {model: 'Images'}
+      references: {
+        model: 'Images',
+        key: 'id'
+      },
     }
   }, {});
 
   Party.associate = function(models) {
     // associations can be defined here
-    Party.belongsTo(models.VideoGame, { foreignKey: 'gameId' });
+    Party.belongsTo(models.Videogame, { foreignKey: 'gameId' });
     Party.belongsTo(models.User, { foreignKey: 'ownerId' });
     Party.belongsTo(models.Image, { foreignKey: 'imageId' });
 
@@ -49,14 +58,14 @@ module.exports = (sequelize, DataTypes) => {
       otherKey: 'userId',
       foreignKey: 'partyId'
     }
-    Party.belongsTo(models.User, requestMapping);
+    Party.belongsToMany(models.User, requestMapping);
 
     const partyUserMapping = {
       through: 'PartyUser',
       otherKey: 'userId',
       foreignKey: 'partyId'
     }
-    Party.belongsTo(models.User, partyUserMapping);
+    Party.belongsToMany(models.User, partyUserMapping);
 
     Party.hasMany(models.PartyChat, { foreignKey: 'partyId' });
   };

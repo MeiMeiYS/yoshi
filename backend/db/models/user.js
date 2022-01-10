@@ -35,7 +35,10 @@ module.exports = (sequelize, DataTypes) => {
     imageId: {
       type: DataTypes.INTEGER,
       allowNull: true,
-      references: { model: 'Images' }
+      references: {
+        model: 'Images',
+        key: 'id'
+      },
     }
   }, {
     defaultScope: {
@@ -63,14 +66,14 @@ module.exports = (sequelize, DataTypes) => {
       otherKey: 'partyId',
       foreignKey: 'userId'
     }
-    User.belongsTo(models.Party, requestMapping);
+    User.belongsToMany(models.Party, requestMapping);
 
     const partyUserMapping = {
       through: 'PartyUser',
       otherKey: 'partyId',
       foreignKey: 'userId'
     }
-    User.belongsTo(models.Party, partyUserMapping);
+    User.belongsToMany(models.Party, partyUserMapping);
 
     User.hasMany(models.PartyChat, { foreignKey: 'userId' });
   };
@@ -121,6 +124,7 @@ module.exports = (sequelize, DataTypes) => {
       username,
       email,
       hashedPassword,
+      imageId: null
     });
     return await User.scope('currentUser').findByPk(user.id);
   };

@@ -16,17 +16,26 @@ module.exports = (sequelize, DataTypes) => {
     genreId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {model: 'Genres'}
+      references: {
+        model: 'Genres',
+        key: 'id'
+      },
     },
     platformId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {model: 'Platforms'}
+      references: {
+        model: 'Platforms',
+        key: 'id'
+      },
     },
     imageId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {model: 'Images'}
+      references: {
+        model: 'Images',
+        key: 'id'
+      },
     }
   }, {});
 

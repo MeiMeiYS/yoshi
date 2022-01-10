@@ -8,12 +8,18 @@ module.exports = (sequelize, DataTypes) => {
     partyId: {
       allowNull: false,
       type: DataTypes.INTEGER,
-      references: { model: 'Parties' }
+      references: {
+        model: 'Parties',
+        key: 'id'
+      },
     },
     userId: {
       allowNull: false,
       type: DataTypes.INTEGER,
-      references: { model: 'Users' }
+      references: {
+        model: 'Users',
+        key: 'id'
+      },
     }
   }, {});
 
