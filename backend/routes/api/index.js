@@ -2,6 +2,9 @@ const router = require('express').Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const genresRouter = require('./genres.js');
+const platformsRouter = require('./platforms.js');
+const imagesRouter = require('./images.js');
+const videogameRouter = require('./videogames.js');
 // const asyncHandler = require('express-async-handler');
 // const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth.js');
 // const { User } = require('../../db/models');
@@ -9,7 +12,9 @@ const genresRouter = require('./genres.js');
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/genres', genresRouter);
-
+router.use('/platforms', platformsRouter);
+router.use('/images', imagesRouter);
+router.use('/videogames', videogameRouter);
 
 //vvv Testing Auth
 router.post('/test', (req, res) => {
