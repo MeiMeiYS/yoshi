@@ -34,9 +34,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     imageId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      references: { model: 'Images' },
-      defaultValue: 1
+      allowNull: true,
+      references: { model: 'Images' }
     }
   }, {
     defaultScope: {

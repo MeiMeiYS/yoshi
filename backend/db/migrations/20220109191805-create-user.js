@@ -23,10 +23,9 @@ module.exports = {
         type: Sequelize.STRING.BINARY
       },
       imageId: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER,
-        references: { model: 'Images' },
-        defaultValue: 1,
+        references: { model: 'Images' }
       },
       createdAt: {
         allowNull: false,

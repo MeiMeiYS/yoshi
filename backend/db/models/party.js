@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     imageId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {model: 'Images'}
     }
   }, {});

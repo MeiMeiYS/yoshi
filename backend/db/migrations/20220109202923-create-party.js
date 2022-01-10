@@ -36,7 +36,7 @@ module.exports = {
         references: {model: 'Users'}
       },
       imageId: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER,
         references: {model: 'Images'}
       },
