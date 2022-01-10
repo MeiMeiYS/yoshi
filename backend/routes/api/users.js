@@ -1,12 +1,13 @@
 // This File Contains User Sign Up Routes:
 // Signup: POST /api/users
+// Get All Requests: GET /api/users/id/requests
 
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
-const { User } = require('../../db/models');
+const { Request, User } = require('../../db/models');
 
 const router = express.Router();
 
@@ -39,6 +40,13 @@ router.post('/', validateSignup, asyncHandler(async (req, res) => {
     await setTokenCookie(res, user);
 
     return res.json({user});
+}));
+
+// Get All Requests: GET /api/users/id/requests
+router.get('/:id(\\d+)/requests', asyncHandler(async (req, res) => {
+  const userId = parseInt(req.params.id, 10);
+  const requests = await Request.findAll({ where: {userId} });
+  return res.json(requests);
 }));
 
 module.exports = router;
