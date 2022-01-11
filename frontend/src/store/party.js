@@ -13,6 +13,15 @@ const load = allParties => ({
     party,
   });
 
+export const fetch12Parties = () => async dispatch => {
+  const response = await fetch("/api/parties");
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(load(data.parties))
+    return data.parties;
+  }
+}
+
 export const createParty = (requiredData) => async dispatch => {
     const response = await csrfFetch("/api/parties", {
         method: "POST",
@@ -41,18 +50,17 @@ const partyReducer = (state = {}, action) => {
         case LOAD:{
             newState = Object.assign({}, state);
             if (action.allParties){
-                console.log('there is action.body here')
-                newState.party = action.allParties;
+                newState.allParties = action.allParties;
             };
 
             return newState;
         }
         case ADD_ONE:{
             newState = Object.assign({}, state);
-            if (action.party){
-                console.log('there is action.body here')
-                newState.party = action.party;
-            };
+            // if (action.party){
+            //     console.log('there is action.body here')
+            //     newState.party = action.party;
+            // };
 
             return newState;
         }

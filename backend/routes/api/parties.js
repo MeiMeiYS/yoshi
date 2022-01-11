@@ -7,8 +7,9 @@ const { Party, Request, Image } = require('../../db/models');
 
 const router = express.Router();
 
+//get 20 parties max
 router.get('/', asyncHandler(async (req, res) => {
-    const parties = await Party.getAllParties();
+    const parties = await Party.get12Parties({limit: 12});
     return res.json({parties});
 }));
 

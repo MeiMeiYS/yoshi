@@ -18,6 +18,15 @@ export const getAllVideoGames = () => async dispatch => {
     //else: fail to login
 }
 
+export const getVideoGameImage = (imageId) => async dispatch => {
+    const response = await fetch(`/api/images/${imageId}`);
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    }
+}
+
 const videoGameReducer = (state = {}, action) => {
     let newState;
     switch (action.type) {

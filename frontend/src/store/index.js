@@ -8,7 +8,7 @@ import partyReducer from './party';
 const rootReducer = combineReducers({
   session: sessionReducer,
   videoGames: videoGameReducer,
-  party: partyReducer
+  parties: partyReducer
 });
 
 let enhancer;

@@ -70,10 +70,15 @@ module.exports = (sequelize, DataTypes) => {
     Party.hasMany(models.PartyChat, { foreignKey: 'partyId' });
   };
 
-  Party.getAllParties = async function () {
+  Party.get12Parties = async function () {
     const { Videogame, User, Image } = this.associations;
     return await Party.findAll({ include: [Videogame, User, Image] });
+    // return await Party.findAll({ include: [
+    //   {model: Videogame, include: [{model: Image}]},
+    //   {model: User, include: [{model: Image}] },
+    //     Image] });
   };
+
 
   Party.getPartyById = async function (id) {
     const { Videogame, User, Image } = this.associations;

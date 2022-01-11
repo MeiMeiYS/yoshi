@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const imageId = parseInt(req.params.id, 10);
     const image = await Image.getImageById(imageId);
-    return res.json({image});
+    return res.json(image);
 }));
 
 module.exports = router;

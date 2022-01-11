@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Image.hasMany(models.User, { foreignKey: 'imageId' });
     Image.hasMany(models.Party, { foreignKey: 'imageId' });
+    Image.hasMany(models.Videogame, { foreignKey: 'imageId' });
   };
 
   Image.getImageById = async function (id) {
