@@ -29,6 +29,10 @@ div.top-brand-logo {
     /* width: 100px; */
 }
 
+div.top-brand-logo a:hover {
+    transform: translateY(1px);
+}
+
 /* --------top search bar section--------*/
 .top-search-bar {
     display: flex;

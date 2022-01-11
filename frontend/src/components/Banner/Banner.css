@@ -1,0 +1,45 @@
+.banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 60vh;
+    background-color: #010a18;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner img {
+    width: 100%;
+    max-width: 1500px;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.banner div {
+    position: absolute;
+    bottom: 8%;
+}
+
+.slogan {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    font-size: 40px;
+}
+
+.slogan a {
+    font-weight: bolder;
+    font-size: 60px;
+    color: var(--main-purple);
+    text-shadow: 2px 2px 2px #ebc407;
+    text-decoration: none;
+}
+
+.slogan a:hover {
+    font-weight: bolder;
+    font-size: 60px;
+    color: #ebc407;
+    text-shadow: 2px 2px 2px var(--main-purple);
+}

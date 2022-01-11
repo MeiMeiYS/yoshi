@@ -80,5 +80,10 @@ module.exports = (sequelize, DataTypes) => {
     return await Party.findByPk(id, { include: [Videogame, User, Image] });
   };
 
+  Party.create = async function (data) {
+    const party = await Party.create(data);
+    return party;
+  };
+
   return Party;
 };

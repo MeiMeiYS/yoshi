@@ -1,6 +1,8 @@
 import { Switch, Route } from 'react-router-dom';
 
 import Navigation from './components/Navigation';
+import Banner from './components/Banner';
+import PartyBrowser from './components/PartyBrowser';
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage"
 import Footer from './components/Footer';
@@ -15,10 +17,10 @@ function App() {
       <Navigation />
       <main>
 
-        <section>
           <Switch>
           <Route exact path="/">
-            <h1>Home Page</h1>
+            <Banner/>
+            <PartyBrowser />
           </Route>
             <Route path="/login">
                 <LoginFormPage />
@@ -33,7 +35,6 @@ function App() {
                 <h1>404: Page not found</h1>
             </Route>
           </Switch>
-        </section>
 
       </main>
       <Footer />

@@ -20,5 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     return await Image.findByPk(id);
   };
 
+  Image.create = async function (url) {
+    const image = await Image.create(url);
+    return image;
+  };
+
   return Image;
 };

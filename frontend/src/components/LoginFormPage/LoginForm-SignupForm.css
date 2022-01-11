@@ -58,7 +58,7 @@
     border: 2px solid var(--main-purple-focus);
 }
 
-.login-errors, .validation-error {
+.validation-error {
     color: rgb(239, 83, 83);
     align-self: flex-start;
     list-style-type: none;

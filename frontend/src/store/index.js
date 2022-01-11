@@ -3,10 +3,12 @@ import thunk from 'redux-thunk';
 
 import sessionReducer from './session';
 import videoGameReducer from './videogame';
+import partyReducer from './party';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  videoGames: videoGameReducer
+  videoGames: videoGameReducer,
+  party: partyReducer
 });
 
 let enhancer;

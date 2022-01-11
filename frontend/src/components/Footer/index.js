@@ -41,7 +41,7 @@ const Footer = () => {
                     </button>
                 </div>
             </div>
-            <p>© 2021 | Designed & coded by Mei Shih</p>
+            <p>© 2022 | Designed & coded by Mei Shih | React Express PostgreSQL</p>
         </footer>
     )
 }
