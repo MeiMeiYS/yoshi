@@ -7,6 +7,9 @@
     --main-purple-focus: #6c41ba;
     --input-background: #464649;
     --input-border-hover: #8fa4b9;
+    --danger-red: rgb(196, 71, 48);
+    --danger-red-hover: rgb(218, 73, 47);
+    --danger-darkred: rgb(133, 49, 35);
   }
 
 
@@ -20,11 +23,18 @@
 main {
     display: flex;
     width: 100vw;
-    height: 100vh;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     background-color: black;
     transition: 0.25s;
+    /* min height = 100vh minus top nav bar and footer height */
+    min-height: calc(100vh - 50px - 190px);
+}
+
+h1 {
+    margin: 10px;
+    font-size: 40px;
 }
 
 

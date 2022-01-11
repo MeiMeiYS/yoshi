@@ -12,6 +12,7 @@ const ProfileButton = ({ sessionUser }) => {
     const loginBtn = useRef();
     const signupBtn = useRef();
     const logoutBtn = useRef();
+    const createPartyBnt = useRef();
 
     const [ showUserMenu, setShowUserMenu ] = useState(false);
 
@@ -38,8 +39,8 @@ const ProfileButton = ({ sessionUser }) => {
             // if click on login or sign up button in downdown menu, the menu will close
             if ( loginBtn?.current?.contains(e.target) ||
                 signupBtn?.current?.contains(e.target) ||
-                logoutBtn?.current?.contains(e.target) ){
-                    console.log('ckdjkknf')
+                logoutBtn?.current?.contains(e.target) ||
+                createPartyBnt?.current?.contains(e.target) ){
                     setShowUserMenu(false);
             }
         };
@@ -61,6 +62,9 @@ const ProfileButton = ({ sessionUser }) => {
                         <p>Hi! {sessionUser.username}</p>
                     </div>
                     <hr/>
+                    <div>
+                        <NavLink ref={createPartyBnt} to={`/parties/new`}>Create Party</NavLink>
+                    </div>
                     <button ref={logoutBtn} type='button' onClick={handleLogout}>Logout</button>
                 </> :
                 <>

@@ -13,7 +13,6 @@ const Navigation = () => {
     const dispatch = useDispatch();
 
     const sessionUser = useSelector((state) => state.session.user);
-    // console.log('This is sessionUser:',sessionUser)
 
     useEffect(() => {
         dispatch(restoreSession());

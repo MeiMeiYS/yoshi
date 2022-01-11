@@ -46,9 +46,7 @@ const SignupFormPage = () => {
   }, [username, email, password, confirmPassword]);
 
   const sessionUser = useSelector((state) => state.session.user);
-  // console.log('This is sessionUser:',sessionUser)
   if (sessionUser) {
-    console.log("you already logged in");
     return <Redirect to="/" />;
   }
 

@@ -74,7 +74,6 @@ const sessionReducer = (state = initialState, action) => {
         case SET_SESSION_USER:{
             newState = Object.assign({}, state);
             newState.user = action.sessionUser;
-            console.log('I am new State:', newState)
             return newState;
         }
 

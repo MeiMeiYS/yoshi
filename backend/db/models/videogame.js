@@ -1,6 +1,4 @@
 'use strict';
-// const db = require('./index');
-// console.log('!!!!!!!!!!!!!!!!', db.Image)
 
 module.exports = (sequelize, DataTypes) => {
   const Videogame = sequelize.define('Videogame', {

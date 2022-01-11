@@ -6,6 +6,9 @@
     background-color: var(--base-dark);
     width: 100vw;
     height: 50px;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
 }
 
 div.top-brand-logo {
