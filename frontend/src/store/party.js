@@ -46,7 +46,7 @@ export const checkPartyNameAvailability = (partyName) => async dispatch => {
     const response = await fetch(`/api/parties/${partyName}`);
     if (response.ok) {
       const data = await response.json();
-      console.log('moment of truth', data)
+      // console.log('moment of truth', data)
       return data;
     }
     return false;

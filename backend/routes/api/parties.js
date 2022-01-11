@@ -18,24 +18,18 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 router.post('/', requireAuth, asyncHandler(async (req, res) => {
-    // console.log ('You are here!!!!!!!!!!!!!!!!!!!!!')
-    // console.log (req.body)
     const { name, description, space, openStatus, gameId, ownerId, url } = req.body;
     const data = { name, description, space, openStatus, gameId, ownerId };
 
     //If there is an image in req.body, create a image
     let image;
     if (url) {
-        console.log('created image')
-        image = await Image.create(url);
+        image = await Image.create({url});
         data['imageId'] = image.id
     }
-
-    //create party
+    // create party
     const party = await Party.create(data);
-    console.log('new Party:', party);
-
-    return party;
+    return res.json(party);
 }));
 
 router.get('^/:id(\\d+)', asyncHandler(async (req, res) => {

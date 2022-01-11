@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./PartyDetail.css";
-
+import favicon from '../../images/favicon.png';
 import { fetchOneParties } from "../../store/party";
 
 const platformIcons = {
@@ -36,13 +36,16 @@ const PartyDetail = () => {
       {party && (
         <>
           <div className="party-banner-img-container">
-            <img src={party.Videogame.Image.url}></img>
+            <img src={party?.Videogame?.Image?.url}></img>
           </div>
           <h1>{party.name}</h1>
 
           <div className="party-info-group">
             <div className="party-clan-image">
-              <img src={party.Image.url}></img>
+              {party?.Image?.url ?
+                  <img src={party?.Image?.url}></img> :
+                  <img src={favicon}></img>
+                }
             </div>
             <div className="home-page-vl"></div>
             <div className="party-platform-icon">

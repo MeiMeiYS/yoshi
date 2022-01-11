@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import './PartyBrowser.css';
-
+import favicon from '../../images/favicon.png';
 import { fetch12Parties } from '../../store/party';
 import { getVideoGameImage } from '../../store/videogame';
 
@@ -48,7 +48,10 @@ const PartyBrowser = () => {
                         </div>
                         <div className='party-info-group'>
                             <div className='party-clan-image' >
-                                <img src={party.Image.url}></img>
+                                {party?.Image?.url ?
+                                    <img src={party?.Image?.url}></img> :
+                                    <img src={favicon}></img>
+                                }
                             </div>
                             <div className='home-page-vl'></div>
                             <div className='party-platform-icon' >

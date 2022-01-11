@@ -27,7 +27,7 @@ const CreatePartyForm = () => {
 
     const allVideoGames = useSelector(state => state.videoGames);
     const sessionUser = useSelector((state) => state.session.user);
-    console.log('!!!!!!!!!!!!!!!!!',partyNameIsOkToUse);
+    // console.log('!!!!!!!!!!!!!!!!!',partyNameIsOkToUse);
     useEffect(()=> {
         setFormIsvalid(true);
         setPartyNameIsValid(true);
@@ -86,14 +86,17 @@ const CreatePartyForm = () => {
         const newPartyObj = {
             name: partyName,
             description,
-            space,
+            space: parseInt(space, 10),
             openStatus: true,
-            gameId: videoGameId,
+            gameId: parseInt(videoGameId, 10),
             ownerId: sessionUser.id,
             url
         }
-        dispatch(createParty(newPartyObj));
-
+        const newParty = dispatch(createParty(newPartyObj)).then(party => {
+            if (party) {
+                history.push(`/parties/${party.id}`)
+            }
+        });
         //redirect
     }
 

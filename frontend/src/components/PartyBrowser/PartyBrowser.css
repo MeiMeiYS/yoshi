@@ -166,6 +166,9 @@
         width: 45%;
         margin: 10px;
     }
+    .party-container .party-info-group {
+        width: 80%;
+    }
 }
 
 /* small */
