@@ -22,16 +22,32 @@ div.top-brand-logo {
 .top-nav-favicon {
     height: 80%;
     margin-top: 5px;
+    position: relative;
+    top: 3px;
 }
 
-.top-nav-logo {
+/* .top-nav-logo {
     height: 80%;
-    /* width: 100px; */
+    width: 100px;
+} */
+
+.top-brand-logo .logo {
+    font-size: 50px;
+    position: relative;
+    bottom: 3px;
 }
 
-div.top-brand-logo a:hover {
-    transform: translateY(1px);
+
+.top-brand-logo .logo:hover {
+    font-size: 50px;
+    color: var(--main-purple);
+    text-shadow: 2px 2px 2px #ebc407;
+    transform: translateY(2px);
 }
+
+/* div.top-brand-logo a:hover {
+    transform: translateY(1px);
+} */
 
 /* --------top search bar section--------*/
 .top-search-bar {

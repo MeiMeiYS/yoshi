@@ -1,0 +1,184 @@
+.party-detail-page {
+    width: 80%;
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: darkgray; */
+}
+
+.party-detail-page .party-banner-img-container {
+    width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+}
+
+.party-detail-page .party-banner-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+}
+
+.party-detail-page h1 {
+    color: whitesmoke;
+    font-size: 2em;
+    margin: 20px 0;
+}
+
+.party-detail-page .party-info-group {
+    width: 90%;
+    max-width: 450px;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    bottom: 65px;
+    color: whitesmoke;
+    margin: 10px 0;
+    /* background-color: lightpink; */
+}
+
+.party-create-time-container,
+.party-member-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail-page-vl {
+    border-left: 1px solid darkgray;
+    height: 55px;
+    /* margin: 0 15px; */
+}
+
+.party-detail-page  .party-info-group .party-clan-image,
+.party-detail-page  .party-info-group .party-platform-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.party-detail-page  .party-info-group .party-clan-image img,
+.party-detail-page  .party-info-group .party-platform-icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.party-host-container {
+    width: 90%;
+    max-width: 700px;
+}
+
+.party-host-container p {
+    color: whitesmoke;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    margin: 10px 0;
+}
+
+.party-host-container span {
+    display: inline-block;
+    height: 55px;
+    width: 55px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 0 10px;
+}
+
+.party-host-container span img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.party-detail-page  .party-detail-description,
+.party-detail-page .party-detail-game-info {
+    margin-bottom: 40px;
+    width: 90%;
+    max-width: 700px;
+    color: whitesmoke;
+    line-height: 30px;
+    font-size: 16px;
+}
+
+.party-detail-hr {
+    margin-bottom: 40px;
+    width: 80%;
+    border: 1px solid var(--base-dark-hover);
+    max-width: 650px;
+    font-size: 10px;
+}
+
+.party-detail-request-btn {
+    height: 35px;
+    width: 150px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    transition: 0.3s;
+    background-color: var(--main-purple);
+    box-shadow: 0 4px #312548;
+    color: whitesmoke;
+}
+
+.party-detail-request-btn:hover {
+    background-color: var(--main-purple-hover);
+}
+
+.party-detail-request-btn:active {
+    background-color: var(--main-purple-hover);
+    box-shadow: 0 0px #666;
+    transform: translateY(4px);
+}
+
+/* ------------------media query------------------ */
+
+/* Extra extra large */
+@media (max-width: 1400px) {
+
+}
+
+/* Extra large */
+@media (max-width: 1200px) {
+    .party-detail-page {
+        width: 80%;
+    }
+}
+
+/* Large */
+@media (max-width: 992px) {
+    .party-detail-page {
+        width: 90%;
+    }
+    .party-detail-page .party-banner-img-container {
+        max-height: 400px;
+    }
+}
+
+/* Medium */
+@media (max-width: 768px) {
+    .party-detail-page {
+        width: 100%;
+    }
+    .party-detail-page .party-banner-img-container {
+        max-height: 300px;
+    }
+}
+
+/* small */
+@media (max-width: 576px) {
+
+}

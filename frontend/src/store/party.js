@@ -1,15 +1,15 @@
 import { csrfFetch } from "./csrf";
 
 const LOAD = 'parties/load';
-const ADD_ONE = 'parties/addOne';
+const LOAD_ONE = 'parties/loadOne';
 
 const load = allParties => ({
     type: LOAD,
     allParties,
   });
 
-  const addOne = party => ({
-    type: ADD_ONE,
+  const loadOne = party => ({
+    type: LOAD_ONE,
     party,
   });
 
@@ -22,6 +22,15 @@ export const fetch12Parties = () => async dispatch => {
   }
 }
 
+export const fetchOneParties = (partyId) => async dispatch => {
+  const response = await fetch(`/api/parties/${partyId}`);
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(loadOne(data.party))
+    return data.party;
+  }
+}
+
 export const createParty = (requiredData) => async dispatch => {
     const response = await csrfFetch("/api/parties", {
         method: "POST",
@@ -29,7 +38,6 @@ export const createParty = (requiredData) => async dispatch => {
       });
     if (response.ok) {
       const party = await response.json();
-      dispatch(addOne(party))
       return party;
     }
 }
@@ -50,17 +58,20 @@ const partyReducer = (state = {}, action) => {
         case LOAD:{
             newState = Object.assign({}, state);
             if (action.allParties){
-                newState.allParties = action.allParties;
+              const partyList = {}
+              action.allParties.map(party => {
+                partyList[party.id] = party
+              });
+                newState.allParties = partyList;
             };
 
             return newState;
         }
-        case ADD_ONE:{
+        case LOAD_ONE:{
             newState = Object.assign({}, state);
-            // if (action.party){
-            //     console.log('there is action.body here')
-            //     newState.party = action.party;
-            // };
+            if (action.party){
+                newState.currentParty = action.party;
+            };
 
             return newState;
         }

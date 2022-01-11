@@ -29,7 +29,7 @@
     font-size: 40px;
 }
 
-.slogan a {
+a.logo {
     font-weight: bolder;
     font-size: 60px;
     color: var(--main-purple);
@@ -37,7 +37,7 @@
     text-decoration: none;
 }
 
-.slogan a:hover {
+a.logo:hover {
     font-weight: bolder;
     font-size: 60px;
     color: #ebc407;

@@ -22,9 +22,10 @@ const Navigation = () => {
     return (
         <nav className='top-nav-bar'>
             <div className='top-brand-logo'>
-                <NavLink exact to={`/`}>
+                <NavLink className='logo'exact to={`/`}>
                     <img className='top-nav-favicon' src={favicon}></img>
-                    <img className='top-nav-logo' src={logo}></img>
+                    {/* <img className='top-nav-logo' src={logo}></img> */}
+                    Yoshi
                 </NavLink>
             </div>
             <div className='top-search-bar'>

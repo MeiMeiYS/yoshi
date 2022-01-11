@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Banner from './components/Banner';
 import PartyBrowser from './components/PartyBrowser';
+import PartyDetail from './components/PartyDetail';
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage"
 import Footer from './components/Footer';
@@ -30,6 +31,9 @@ function App() {
             </Route>
             <Route path="/parties/new">
                 <CreatePartyForm />
+            </Route>
+            <Route path="/parties/:partyId">
+                <PartyDetail />
             </Route>
             <Route>
                 <h1>404: Page not found</h1>

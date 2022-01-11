@@ -74,9 +74,10 @@ module.exports = (sequelize, DataTypes) => {
     const { Videogame, User, Image } = this.associations;
     return await Party.findAll({ include: [Videogame, User, Image] });
     // return await Party.findAll({ include: [
-    //   {model: Videogame, include: [{model: Image}]},
-    //   {model: User, include: [{model: Image}] },
+    //   {model: Videogame, include: {model: Image}},
+    //   {model: User, include: {model: Image} },
     //     Image] });
+    //^^^ This does not work so I have to move code into router due to scope.
   };
 
 
