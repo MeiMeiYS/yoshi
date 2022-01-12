@@ -38,8 +38,8 @@ export const fetchOneParty = (partyId) => async dispatch => {
   const response = await fetch(`/api/parties/${partyId}`);
   if (response.ok) {
     const data = await response.json();
-    dispatch(addOne(data.party))
-    return data.party;
+    if (data) dispatch(addOne(data));
+    return data;
   }
 }
 
@@ -98,7 +98,9 @@ const partyReducer = (state = {}, action) => {
         }
         case ADD_ONE:{
           newState = Object.assign({}, state);
-          newState[action.party.id] = action.party
+          if (action.party && action.party.id){
+            newState[action.party.id] = action.party
+          }
             return newState;
         }
 

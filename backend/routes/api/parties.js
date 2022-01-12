@@ -72,13 +72,20 @@ router.post('/', requireAuth, newPartyValidators, asyncHandler(async (req, res) 
 
 }));
 
-router.get('^/:id(\\d+)', asyncHandler(async (req, res) => {
+router.get('^/:id(\\d+)', asyncHandler(async (req, res, next) => {
     const partyId = parseInt(req.params.id, 10);
     const party = await Party.findByPk(partyId,{ include: [
         {model: Videogame, include: {model: Image}},
         {model: User, include: {model: Image} },
           Image] });
-    return res.json({party});
+    if (party) return res.json(party);
+    else {
+        const err = new Error('Party not found.');
+        err.status = 404;
+        err.title = 'Party not found.';
+        err.errors = ['Opps! We can not find this party!'];
+        return res.json(err);
+    }
 }));
 
 //check if this party name is used, party name can not start with number
@@ -118,7 +125,12 @@ router.put('^/:id(\\d+)', requireAuth, updatePartyValidators, asyncHandler(async
         await party.update(data);
     }
 
-    return res.json('success');
+    const updatedParty = await Party.findByPk(partyId,{ include: [
+        {model: Videogame, include: {model: Image}},
+        {model: User, include: {model: Image} },
+          Image] });
+
+    return res.json(updatedParty);
 }));
 
 router.delete('^/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {

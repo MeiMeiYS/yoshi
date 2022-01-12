@@ -60,7 +60,7 @@ const LoginFormPage = () => {
         onChange={(e) => setPassword(e.target.value)}
         required
         ></input>
-        <ul className="login-errors">
+        <ul className="errors-404">
           {errors.map((error, i) => (
             <li key={i} className="validation-error">{error}</li>
           ))}

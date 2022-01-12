@@ -32,9 +32,11 @@ const EditPartyForm = () => {
   //fetch all data
   useEffect(() => {
     dispatch(restoreSession());
-    dispatch(fetchOneParty(partyId));
+    dispatch(fetchOneParty(partyId)).then(async (res)=> {
+      if (res && res.errors) setErrors(res.errors)
+    })
     return () => {}
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (currentParty && !hasHydrated){
@@ -81,6 +83,10 @@ const EditPartyForm = () => {
   if (currentParty && !isLoading && !sessionUser) {
     return <Redirect to="/" />;
   }
+
+  //test the route to see id partyId is only digits, if not redirect to '/'
+  const validDigits = /^\d+$/;
+  if (!validDigits.test(partyId)) return <Redirect to="/" />
 
   const handleCancle = (e) => {
     e.preventDefault();
@@ -141,6 +147,11 @@ const EditPartyForm = () => {
 
   return (
     <div className="edit-party-block">
+      <ul className="login-errors">
+          {errors.map((error, i) => (
+            <li key={i} className="page-not-found-error">{error}</li>
+          ))}
+      </ul>
       {currentParty && (
         <form className="edit-party-form" onSubmit={handleSubmit}>
           <h1>Edit My Party</h1>

@@ -36,7 +36,7 @@ function App() {
             <Route exact path="/parties/:partyId/edit">
                 <EditPartyForm />
             </Route>
-            <Route path="/parties/:partyId">
+            <Route exact path="/parties/:partyId">
                 <PartyDetail />
             </Route>
             <Route>

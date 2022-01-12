@@ -43,6 +43,18 @@ h1 {
     list-style-type: none;
 }
 
+.page-not-found-error {
+    color: whitesmoke;
+    font-size: 30px;
+    list-style-type: none;
+
+}
+
+.login-errors {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
 
 /* .no-display {
     display: none;

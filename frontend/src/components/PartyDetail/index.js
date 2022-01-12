@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { Redirect, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./PartyDetail.css";
 import favicon from '../../images/favicon.png';
@@ -22,11 +22,18 @@ const PartyDetail = () => {
   const { partyId } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
   const currentParty = useSelector((state) => state.parties[partyId]);
+  const [errors, setErrors] = useState([]);
 
 
   useEffect(() => {
-    dispatch(fetchOneParty(partyId));
-  }, [ dispatch]);
+    dispatch(fetchOneParty(partyId)).then(async (res)=> {
+      if (res && res.errors) setErrors(res.errors)
+    })
+  }, []);
+
+  //test the route to see id partyId is only digits, if not redirect to '/'
+  const validDigits = /^\d+$/;
+  if (!validDigits.test(partyId)) return <Redirect to="/" />
 
   const handleRequest = e => {
       e.preventDefault();
@@ -41,6 +48,11 @@ const PartyDetail = () => {
 
   return (
     <div className="party-detail-page">
+      <ul className="login-errors">
+          {errors.map((error, i) => (
+            <li key={i} className="page-not-found-error">{error}</li>
+          ))}
+      </ul>
       {currentParty && (
         <>
           <div className="party-banner-img-container">
