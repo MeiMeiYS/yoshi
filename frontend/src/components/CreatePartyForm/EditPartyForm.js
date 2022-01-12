@@ -97,7 +97,7 @@ const EditPartyForm = () => {
     //     history.push('/');
     //   }
     // });
-    return dispatch(deleteParty(partyId)).then(async (res) => {
+    return dispatch(deleteParty(partyId)).then(async () => {
       history.push('/');
     }).catch(async (res) => {
       const data = await res.json();

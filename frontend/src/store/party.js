@@ -72,9 +72,7 @@ export const deleteParty = (partyId) => async dispatch => {
     });
   if (response.ok) {
     dispatch(removeOne(partyId));
-    return 'success';
   }
-  return 'failed'
 }
 
 export const checkPartyNameAvailability = (partyId, partyName) => async dispatch => {
