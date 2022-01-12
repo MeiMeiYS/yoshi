@@ -24,23 +24,23 @@ function App() {
             <Banner/>
             <PartyBrowser />
           </Route>
-            <Route path="/login">
+            <Route exact path="/login">
                 <LoginFormPage />
             </Route>
-            <Route path="/signup">
+            <Route exact path="/signup">
                 <SignupFormPage />
             </Route>
-            <Route path="/parties/new">
+            <Route exact path="/parties/new">
                 <CreatePartyForm />
             </Route>
-            <Route path="/parties/:partyId/edit">
+            <Route exact path="/parties/:partyId/edit">
                 <EditPartyForm />
             </Route>
             <Route path="/parties/:partyId">
                 <PartyDetail />
             </Route>
             <Route>
-                <h1>404: Page not found</h1>
+                <h1 style={{color: 'white'}}>404: Page not found</h1>
             </Route>
           </Switch>
 

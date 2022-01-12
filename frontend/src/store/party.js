@@ -1,7 +1,8 @@
 import { csrfFetch } from "./csrf";
 
 const LOAD = 'parties/load';
-const LOAD_ONE = 'parties/loadOne';
+const ADD_ONE = 'parties/addOne';
+const UPDATE_ONE = 'parties/updateOne';
 const REMOVE_ONE = 'parties/removeOne';
 
 const load = allParties => ({
@@ -9,13 +10,19 @@ const load = allParties => ({
     allParties
   });
 
-const loadOne = party => ({
-  type: LOAD_ONE,
+const addOne = party => ({
+  type: ADD_ONE,
   party
 });
 
-const removeOne = () => ({
-  type: REMOVE_ONE
+const updateOne = party => ({
+  type: UPDATE_ONE,
+  party
+});
+
+const removeOne = (partyId) => ({
+  type: REMOVE_ONE,
+  partyId
 })
 
 export const fetch12Parties = () => async dispatch => {
@@ -27,11 +34,11 @@ export const fetch12Parties = () => async dispatch => {
   }
 }
 
-export const fetchOneParties = (partyId) => async dispatch => {
+export const fetchOneParty = (partyId) => async dispatch => {
   const response = await fetch(`/api/parties/${partyId}`);
   if (response.ok) {
     const data = await response.json();
-    dispatch(loadOne(data.party))
+    dispatch(addOne(data.party))
     return data.party;
   }
 }
@@ -54,6 +61,7 @@ export const updateParty = (partyId, requiredData) => async dispatch => {
     });
   if (response.ok) {
     const party = await response.json();
+    dispatch(updateOne(party))
     return party;
   }
 }
@@ -63,20 +71,19 @@ export const deleteParty = (partyId) => async dispatch => {
       method: "DELETE"
     });
   if (response.ok) {
-    dispatch(removeOne());
+    dispatch(removeOne(partyId));
     return 'success';
   }
   return 'failed'
 }
 
-export const checkPartyNameAvailability = (partyName) => async dispatch => {
+export const checkPartyNameAvailability = (partyId, partyName) => async dispatch => {
     const response = await fetch(`/api/parties/${partyName}`);
     if (response.ok) {
       const data = await response.json();
-      // console.log('moment of truth', data)
-      return data;
+      if (data.id === parseInt(partyId, 10) || data === 'ok') return 'ok';
+      else return 'notOk'
     }
-    return false;
 }
 
 const partyReducer = (state = {}, action) => {
@@ -85,27 +92,27 @@ const partyReducer = (state = {}, action) => {
         case LOAD:{
             newState = Object.assign({}, state);
             if (action.allParties){
-              const partyList = {}
               action.allParties.map(party => {
-                partyList[party.id] = party
+                newState[party.id] = party
               });
-                newState.allParties = partyList;
             };
-
             return newState;
         }
-        case LOAD_ONE:{
-            newState = Object.assign({}, state);
-            if (action.party){
-                newState.currentParty = action.party;
-            };
-
+        case ADD_ONE:{
+          newState = Object.assign({}, state);
+          newState[action.party.id] = action.party
             return newState;
         }
 
         case REMOVE_ONE:{
           newState = Object.assign({}, state);
-          newState.currentParty = {};
+          delete newState[action.partyId]
+          return newState;
+        }
+
+        case UPDATE_ONE:{
+          newState = Object.assign({}, state);
+          if (action.party) newState[action.party.id] = action.party;
           return newState;
         }
 

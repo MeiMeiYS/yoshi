@@ -31,7 +31,7 @@ export const login = (credentials) => async dispatch => {
       dispatch(setSessionUser(data.user))
       return data.user
     }
-    //else: fail to login
+
 }
 
 export const restoreSession = () => async dispatch => {

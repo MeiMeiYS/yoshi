@@ -3,12 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useHistory, useParams } from "react-router-dom";
 
 import { restoreSession } from "../../store/session";
-import {
-  fetchOneParties,
-  checkPartyNameAvailability,
-  updateParty,
-  deleteParty
-} from "../../store/party";
+import { fetchOneParty, checkPartyNameAvailability, updateParty, deleteParty } from "../../store/party";
 
 import "./PartyForm.css";
 
@@ -16,10 +11,10 @@ const EditPartyForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { partyId } = useParams();
-
   const sessionUser = useSelector((state) => state.session.user);
-  const currentParty = useSelector((state) => state.parties.currentParty);
-  // console.log(currentParty, '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+  const currentParty = useSelector((state) => state.parties[partyId]);
+
+  const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [partyName, setPartyName] = useState(currentParty?.name ?? '');
   const [space, setSpace] = useState(currentParty?.space ?? '');
@@ -34,14 +29,12 @@ const EditPartyForm = () => {
   const [urlIsValid, setUrlIsValid ] = useState(false);
   const [formIsvalid, setFormIsvalid] = useState(false);
 
-console.log('is loading?', isLoading)
-
   //fetch all data
   useEffect(() => {
     dispatch(restoreSession());
-    dispatch(fetchOneParties(partyId));
-
-  }, []);
+    dispatch(fetchOneParty(partyId));
+    return () => {}
+  }, [dispatch]);
 
   useEffect(() => {
     if (currentParty && !hasHydrated){
@@ -51,7 +44,6 @@ console.log('is loading?', isLoading)
       if (currentParty.imageId) setUrl(currentParty.Image.url);
       setHasHydrated(true);
     }
-
   }, [currentParty, hasHydrated]);
 
   useEffect(() => {
@@ -77,11 +69,9 @@ console.log('is loading?', isLoading)
       setDescriptionIsValid(false);
     }
     if ( url && (url.length < 6 || url.length > 600) ) {
-      console.log(url.length, 'I am length')
       setFormIsvalid(false);
       setUrlIsValid(false);
     }
-    // console.log('validation', partyNameIsValid, descriptionIsValid, formIsvalid)
   }, [partyName, space, description, url]);
 
   useEffect(() => {
@@ -99,34 +89,54 @@ console.log('is loading?', isLoading)
 
   const handleDelete = e => {
     e.preventDefault();
-    dispatch(deleteParty(partyId))
-    history.push('/');
+    // dispatch(deleteParty(partyId)).then(res => {
+    //   if (res ==='success'){
+    //     history.push('/');
+    //   } else {
+    //     alert('Oppppp! Somthing went wrong!');
+    //     history.push('/');
+    //   }
+    // });
+    return dispatch(deleteParty(partyId)).then(async (res) => {
+      history.push('/');
+    }).catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) {
+        alert('Oppppp! Somthing went wrong!');
+      };
+      history.push('/');
+    });
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     //check if this name is ok to use
-    dispatch(checkPartyNameAvailability(partyName)).then((res) => {
-      if (!res) {
+    return dispatch(checkPartyNameAvailability(partyId, partyName)).then(async(res) => {
+      if (res !== 'ok') {
         setPartyNameIsOkToUse(false);
         setFormIsvalid(false);
         return;
+      } else {
+
+        const editedPartyObj = {
+          name: partyName,
+          description,
+          space: parseInt(space, 10),
+          url,
+        };
+
+        dispatch(updateParty(partyId, editedPartyObj)).then(async(currentParty) => {
+          if (currentParty) {
+            history.push(`/parties/${partyId}`);
+          }
+        }).catch(async(res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        })
       }
     });
 
-    const editedPartyObj = {
-      name: partyName,
-      description,
-      space: parseInt(space, 10),
-      url,
-    };
-
-    dispatch(updateParty(partyId, editedPartyObj)).then((currentParty) => {
-      if (currentParty) {
-        history.push(`/parties/${currentParty.id}`);
-      }
-    });
   };
 
   return (
@@ -184,6 +194,11 @@ console.log('is loading?', isLoading)
           <p className="validation-error" hidden={descriptionIsValid}>
             Description must be more than 10 characters long.
           </p>
+          <ul className="login-errors">
+          {errors.map((error, i) => (
+            <li key={i} className="validation-error">{error}</li>
+          ))}
+          </ul>
           <div className="edit-party-btn-group">
           <button
               className="party-detail-delete-btn"

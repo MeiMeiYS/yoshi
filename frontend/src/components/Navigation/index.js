@@ -22,7 +22,7 @@ const Navigation = () => {
     return (
         <nav className='top-nav-bar'>
             <div className='top-brand-logo'>
-                <NavLink className='logo'exact to={`/`}>
+                <NavLink className='logo' exact to={`/`}>
                     <img className='top-nav-favicon' src={favicon}></img>
                     {/* <img className='top-nav-logo' src={logo}></img> */}
                     Yoshi
@@ -40,10 +40,10 @@ const Navigation = () => {
                 {sessionUser ? null :
                     <>
                         <div className='top-nav-btn top-nav-login-btn'>
-                            <NavLink to={`/login`}>Login</NavLink>
+                            <NavLink exact to={`/login`}>Login</NavLink>
                         </div>
                         <div className='top-nav-btn top-nav-signup-btn'>
-                            <NavLink to={`/signup`}>Signup</NavLink>
+                            <NavLink exact to={`/signup`}>Signup</NavLink>
                         </div>
                     </>
                 }

@@ -59,7 +59,6 @@ const SignupFormPage = () => {
       password
     };
 
-    console.log(signupInfo);
     return dispatch(signup(signupInfo)).catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) setErrors(data.errors);

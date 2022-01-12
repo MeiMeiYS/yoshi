@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, Redirect, useHistory  } from "react-router-dom";
+import { Redirect, useHistory  } from "react-router-dom";
 
 import { restoreSession } from "../../store/session";
 import { getAllVideoGames } from "../../store/videogame";
@@ -28,7 +28,7 @@ const CreatePartyForm = () => {
 
     const allVideoGames = useSelector(state => state.videoGames);
     const sessionUser = useSelector((state) => state.session.user);
-    // console.log('!!!!!!!!!!!!!!!!!',partyNameIsOkToUse);
+
     useEffect(()=> {
         setFormIsvalid(true);
         setPartyNameIsValid(true);
@@ -52,11 +52,9 @@ const CreatePartyForm = () => {
             setDescriptionIsValid(false);
         }
         if ( url && (url.length < 6 || url.length > 600) ) {
-            console.log(url.length, 'I am length')
             setFormIsvalid(false);
             setUrlIsValid(false);
         }
-        // console.log('validation', partyNameIsValid, descriptionIsValid, formIsvalid)
     }, [partyName, videoGameId, space, description, url])
 
     //fetch all videogames
@@ -81,14 +79,17 @@ const CreatePartyForm = () => {
     const handleSubmit = e => {
         e.preventDefault();
 
+        let exitOutFunction = false;
         //check if this name is ok to use
         dispatch(checkPartyNameAvailability(partyName)).then(res => {
             if (!res){
                 setPartyNameIsOkToUse(false);
                 setFormIsvalid(false);
-                return;
+                exitOutFunction = true
             }
         });
+
+        if (exitOutFunction) return;
 
         const newPartyObj = {
             name: partyName,

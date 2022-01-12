@@ -24,7 +24,7 @@ const LoginFormPage = () => {
 
   const sessionUser = useSelector((state) => state.session.user);
   if (sessionUser) {
-    return <Redirect to="/" />;
+    return <Redirect exact to="/" />;
   }
 
   const handleSubmit = (e) => {
@@ -62,13 +62,13 @@ const LoginFormPage = () => {
         ></input>
         <ul className="login-errors">
           {errors.map((error, i) => (
-            <li key={i}>{error}</li>
+            <li key={i} className="validation-error">{error}</li>
           ))}
         </ul>
         <button type="submit" disabled={!formIsvalid}>Login</button>
         <button type="button" >Demo Site</button>
         <div className="link-container">
-            <NavLink className="new-account-link" to='/signup'>Create a New Account</NavLink>
+            <NavLink className="new-account-link" exact to='/signup'>Create a New Account</NavLink>
         </div>
       </form>
     </div>
