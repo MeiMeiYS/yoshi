@@ -18,19 +18,20 @@ const EditPartyForm = () => {
   const { partyId } = useParams();
 
   const sessionUser = useSelector((state) => state.session.user);
-  const party = useSelector((state) => state.parties.currentParty);
-  // console.log(party, '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+  const currentParty = useSelector((state) => state.parties.currentParty);
+  // console.log(currentParty, '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
   const [isLoading, setIsLoading] = useState(true);
-  const [partyName, setPartyName] = useState(party?.name);
-  const [space, setSpace] = useState(party?.space);
-  const [url, setUrl] = useState(party?.Image?.url);
-  const [description, setDescription] = useState(party?.description);
+  const [partyName, setPartyName] = useState(currentParty?.name ?? '');
+  const [space, setSpace] = useState(currentParty?.space ?? '');
+  const [url, setUrl] = useState(currentParty?.Image?.url ?? '');
+  const [description, setDescription] = useState(currentParty?.description ?? '');
+  const [hasHydrated, setHasHydrated] = useState(false);
 
   const [partyNameIsValid, setPartyNameIsValid] = useState(false);
   const [partyNameNotStartWithNum, setPartyNameNotStartWithNum] = useState(false);
   const [partyNameIsOkToUse, setPartyNameIsOkToUse] = useState(true);
   const [descriptionIsValid, setDescriptionIsValid] = useState(false);
-  const [ urlIsValid, setUrlIsValid ] = useState(false);
+  const [urlIsValid, setUrlIsValid ] = useState(false);
   const [formIsvalid, setFormIsvalid] = useState(false);
 
 console.log('is loading?', isLoading)
@@ -39,7 +40,19 @@ console.log('is loading?', isLoading)
   useEffect(() => {
     dispatch(restoreSession());
     dispatch(fetchOneParties(partyId));
-  }, [dispatch]);
+
+  }, []);
+
+  useEffect(() => {
+    if (currentParty && !hasHydrated){
+      setPartyName(currentParty.name);
+      setSpace(currentParty.space);
+      setDescription(currentParty.description);
+      if (currentParty.imageId) setUrl(currentParty.Image.url);
+      setHasHydrated(true);
+    }
+
+  }, [currentParty, hasHydrated]);
 
   useEffect(() => {
     setFormIsvalid(true);
@@ -72,10 +85,10 @@ console.log('is loading?', isLoading)
   }, [partyName, space, description, url]);
 
   useEffect(() => {
-    if (party && Object.keys(party).length) setIsLoading(false);
-  }, [party]);
+    if (currentParty && Object.keys(currentParty).length) setIsLoading(false);
+  }, [currentParty]);
 
-  if (party && !isLoading && !sessionUser) {
+  if (currentParty && !isLoading && !sessionUser) {
     return <Redirect to="/" />;
   }
 
@@ -109,16 +122,16 @@ console.log('is loading?', isLoading)
       url,
     };
 
-    dispatch(updateParty(partyId, editedPartyObj)).then((party) => {
-      if (party) {
-        history.push(`/parties/${party.id}`);
+    dispatch(updateParty(partyId, editedPartyObj)).then((currentParty) => {
+      if (currentParty) {
+        history.push(`/parties/${currentParty.id}`);
       }
     });
   };
 
   return (
     <div className="edit-party-block">
-      {party && (
+      {currentParty && (
         <form className="edit-party-form" onSubmit={handleSubmit}>
           <h1>Edit My Party</h1>
           <i className="fas fa-gamepad"></i>
@@ -140,7 +153,7 @@ console.log('is loading?', isLoading)
           </p>
           <div className="video-game-inform-disabled">
             <p>
-              {party?.Videogame?.name}
+              {currentParty?.Videogame?.name}
               <span>* This cannot change</span>
             </p>
           </div>
