@@ -10,7 +10,7 @@ module.exports = {
       {url: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'},
       {url: 'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'},
       //vvv game images
-      {url: 'https://res.cloudinary.com/dokjfrn66/image/upload/v1642014500/1-overcook_quhgby.jpg'},
+      {url: 'https://i.ibb.co/FxGqwLN/1-overcook.jpg'},
       {url: 'https://res.cloudinary.com/dokjfrn66/image/upload/v1642014499/2-gta_rnrlou.jpg'},
       {url: 'https://res.cloudinary.com/dokjfrn66/image/upload/v1642014500/3-minecraft_bd62n4.jpg'},
       {url: 'https://res.cloudinary.com/dokjfrn66/image/upload/v1642014499/4-ff_so0r9t.jpg'},

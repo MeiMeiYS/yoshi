@@ -42,7 +42,7 @@ const PartyBrowser = () => {
                 return (
                     <div key={party.id} className='party-container'>
                         <div className='game-img-container'>
-                            <img className='party-game-image' src={party.Videogame.Image.url}></img>
+                            <img crossOrigin="anonymous" className='party-game-image' src={party.Videogame.Image.url}></img>
                         </div>
                         <h3>{party.name}</h3>
                         <div className='party-description'>
@@ -51,13 +51,13 @@ const PartyBrowser = () => {
                         <div className='party-info-group'>
                             <div className='party-clan-image' >
                                 {party?.Image?.url ?
-                                    <img src={party?.Image?.url}></img> :
-                                    <img src={favicon}></img>
+                                    <img crossOrigin="anonymous" src={party?.Image?.url}></img> :
+                                    <img crossOrigin="anonymous" src={favicon}></img>
                                 }
                             </div>
                             <div className='home-page-vl'></div>
                             <div className='party-platform-icon' >
-                                <img src={platformIcons[party.Videogame.platformId]}></img>
+                                <img crossOrigin="anonymous" src={platformIcons[party.Videogame.platformId]}></img>
                             </div>
                             <div className='home-page-vl'></div>
                             <div className='party-member-container' >
