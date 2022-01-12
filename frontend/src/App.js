@@ -4,6 +4,7 @@ import Navigation from './components/Navigation';
 import Banner from './components/Banner';
 import PartyBrowser from './components/PartyBrowser';
 import PartyDetail from './components/PartyDetail';
+import EditPartyForm from './components/CreatePartyForm/EditPartyForm';
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage"
 import Footer from './components/Footer';
@@ -31,6 +32,9 @@ function App() {
             </Route>
             <Route path="/parties/new">
                 <CreatePartyForm />
+            </Route>
+            <Route path="/parties/:partyId/edit">
+                <EditPartyForm />
             </Route>
             <Route path="/parties/:partyId">
                 <PartyDetail />

@@ -1,0 +1,229 @@
+.create-new-party-block,
+.edit-party-block {
+    /* background-color: var(--base-dark); */
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    max-width: 1000px;
+    /* height: 75vh; */
+}
+
+.create-new-party-block form,
+.edit-party-block form {
+    width: 70%;
+    margin: 35px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-new-party-block i,
+.create-new-party-block h1,
+.edit-party-block i,
+.edit-party-block h1 {
+    color: whitesmoke;
+}
+
+.create-new-party-block form i,
+.edit-party-block form i {
+    font-size: 50px;
+    margin: 20px;
+}
+
+.create-new-party-block form input,
+.create-new-party-block form select,
+.create-new-party-block form textarea,
+.edit-party-block form input,
+.edit-party-block form select,
+.edit-party-block form textarea,
+.edit-party-block .video-game-inform-disabled  {
+    background-color: var(--input-background);
+    border: none;
+    color: whitesmoke;
+    width: 100%;
+    height: 35px;
+    margin: 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    box-sizing: border-box;
+    padding: 0 15px;
+    transition: all 0.25s;
+}
+
+.edit-party-block .video-game-inform-disabled {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: darkgray;
+}
+
+.edit-party-block .video-game-inform-disabled span {
+    display: none;
+    color: var(--danger-red);
+    font-weight: bolder;
+    margin-left: 10px;
+}
+
+.edit-party-block .video-game-inform-disabled:hover * {
+    display: inline-block;
+}
+
+.create-new-party-block form input::placeholder,
+.create-new-party-block form textarea::placeholder,
+.edit-party-block form input::placeholder,
+.edit-party-block form textarea::placeholder {
+    color: whitesmoke;
+    opacity: 0.8;
+}
+
+.create-new-party-block form input:hover,
+.create-new-party-block form select:hover,
+.create-new-party-block form textarea:hover,
+.edit-party-block form input:hover,
+.edit-party-block form select:hover,
+.edit-party-block form textarea:hover {
+    color: whitesmoke;
+    border: 1px solid var(--input-border-hover);
+}
+
+.create-new-party-block form input:focus,
+.create-new-party-block form textarea:focus,
+.edit-party-block form input:focus,
+.edit-party-block form textarea:focus {
+    outline: none;
+    background-color: black;
+    border: 2px solid var(--main-purple-focus);
+}
+
+.create-new-party-block form select:focus,
+.edit-party-block form select:focus {
+    outline: none;
+}
+
+.create-new-party-block form textarea,
+.edit-party-block form textarea {
+    height: 200px;
+    padding: 10px 10px;
+}
+
+.create-new-party-block .create-party-btn-group,
+.edit-party-block .edit-party-btn-group {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.create-new-party-block .create-party-btn-group button,
+.edit-party-block .edit-party-btn-group button {
+    width: 100%;
+    height: 35px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    transition: 0.3s;
+}
+
+.edit-party-block .edit-party-btn-group button.party-detail-delete-btn {
+    background-color: var(--danger-red);
+    box-shadow: 0 4px var(--danger-darkred);
+    color: whitesmoke;
+}
+
+.create-new-party-block .create-party-btn-group button.cancel-new-party {
+    /* background-color: var(--base-dark-hover); */
+    background-color: var(--danger-red);
+    box-shadow: 0 4px var(--danger-darkred);
+    color: whitesmoke;
+}
+
+.edit-party-block .edit-party-btn-group button.cancel-edit-party {
+    background-color: var(--base-dark-hover);
+    color: whitesmoke;
+    box-shadow: 0 4px var(--base-dark-hover2);
+    transition: 0.25s;
+}
+
+.create-new-party-block .create-party-btn-group button.submit-new-party,
+.edit-party-block .edit-party-btn-group button.submit-edit-party {
+    background-color: var(--main-purple);
+    box-shadow: 0 4px #312548;
+    color: whitesmoke;
+}
+
+.create-new-party-block .create-party-btn-group button.submit-new-party:disabled,
+.edit-party-block .edit-party-btn-group button.submit-edit-party:disabled {
+    color: grey;
+    background-color: rgb(175, 174, 174);
+    box-shadow: 0 0px #666;
+    transform: translateY(4px);
+}
+
+.create-new-party-block .create-party-btn-group button.cancel-new-party:hover:enabled,
+.edit-party-block .edit-party-btn-group button.party-detail-delete-btn:hover:enabled {
+    background-color: var(--danger-red-hover);
+}
+
+.edit-party-block .edit-party-btn-group button.cancel-edit-party:hover:enabled {
+    background-color: var(--base-dark-hover2);
+}
+
+.create-new-party-block .create-party-btn-group button.submit-new-party:hover:enabled,
+.edit-party-block .edit-party-btn-group button.submit-edit-party:hover:enabled {
+    background-color: var(--main-purple-hover);
+}
+
+.create-new-party-block .create-party-btn-group button.cancel-new-party:active,
+.edit-party-block .edit-party-btn-group button.party-detail-delete-btn:active {
+    background-color: var(--danger-red-hover);
+    box-shadow: 0 0px darkgrey;
+    transform: translateY(4px);
+}
+
+.edit-party-block .edit-party-btn-group button.cancel-edit-party:active {
+    background-color: var(--base-dark-hover2);
+    box-shadow: 0 0px darkgrey;
+    transform: translateY(4px);
+}
+
+.create-new-party-block .create-party-btn-group button.submit-new-party:active,
+.edit-party-block .edit-party-btn-group button.submit-edit-party:active {
+    background-color: var(--main-purple-hover);
+    box-shadow: 0 0px #666;
+    transform: translateY(4px);
+}
+
+/* ------------------media query------------------ */
+
+/* small */
+@media (max-width: 576px) {
+    .create-new-party-block {
+        width: 90vw;
+    }
+}
+
+/* Medium */
+@media (max-width: 768px) {
+    .create-new-party-block {
+        width: 100vw;
+    }
+}
+
+/* Large */
+@media (max-width: 992px) {
+
+}
+
+/* Extra large */
+@media (max-width: 1200px) {
+
+}
+
+/* Extra extra large */
+@media (max-width: 1400px) {
+
+}

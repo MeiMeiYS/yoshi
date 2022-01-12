@@ -20,7 +20,6 @@ router.get('/', asyncHandler(async (req, res) => {
 router.post('/', requireAuth, asyncHandler(async (req, res) => {
     const { name, description, space, openStatus, gameId, ownerId, url } = req.body;
     const data = { name, description, space, openStatus, gameId, ownerId };
-
     //If there is an image in req.body, create a image
     let image;
     if (url) {
@@ -38,7 +37,6 @@ router.get('^/:id(\\d+)', asyncHandler(async (req, res) => {
         {model: Videogame, include: {model: Image}},
         {model: User, include: {model: Image} },
           Image] });
-          console.log(party)
     return res.json({party});
 }));
 
@@ -48,6 +46,30 @@ router.get('^/:partyName', requireAuth, asyncHandler(async (req, res) => {
     const party = await Party.findOne({ where: {name:partyName}});
     if (party) return res.json(false);
     else return res.json(true);
+}));
+
+
+router.put('^/:id(\\d+)', asyncHandler(async (req, res) => {
+    const partyId = parseInt(req.params.id, 10);
+    console.log(req.body)
+    // const party = await Party.findByPk(partyId,{ include: [
+    //     {model: Videogame, include: {model: Image}},
+    //     {model: User, include: {model: Image} },
+    //       Image] });
+    // return res.json({party});
+}));
+
+router.delete('^/:id(\\d+)', asyncHandler(async (req, res) => {
+    const partyId = parseInt(req.params.id, 10);
+    const party = await Party.findByPk(partyId);
+    // if there is image, delete the image
+    if (party.imageid) {
+        const image = await Image.findByPk(party.imageId);
+        image.destroy();
+    }
+    //delete the party
+    party.destroy();
+    return;
 }));
 
 router.get('/:id(\\d+)/requests', asyncHandler(async (req, res) => {

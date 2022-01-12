@@ -2,16 +2,21 @@ import { csrfFetch } from "./csrf";
 
 const LOAD = 'parties/load';
 const LOAD_ONE = 'parties/loadOne';
+const REMOVE_ONE = 'parties/removeOne';
 
 const load = allParties => ({
     type: LOAD,
-    allParties,
+    allParties
   });
 
-  const loadOne = party => ({
-    type: LOAD_ONE,
-    party,
-  });
+const loadOne = party => ({
+  type: LOAD_ONE,
+  party
+});
+
+const removeOne = () => ({
+  type: REMOVE_ONE
+})
 
 export const fetch12Parties = () => async dispatch => {
   const response = await fetch("/api/parties");
@@ -40,6 +45,28 @@ export const createParty = (requiredData) => async dispatch => {
       const party = await response.json();
       return party;
     }
+}
+
+export const updateParty = (partyId, requiredData) => async dispatch => {
+  const response = await csrfFetch(`/api/parties/${partyId}`, {
+      method: "PUT",
+      body: JSON.stringify(requiredData),
+    });
+  if (response.ok) {
+    const party = await response.json();
+    return party;
+  }
+}
+
+export const deleteParty = (partyId) => async dispatch => {
+  const response = await csrfFetch(`/api/parties/${partyId}`, {
+      method: "DELETE"
+    });
+  if (response.ok) {
+    dispatch(removeOne());
+    return 'success';
+  }
+  return 'failed'
 }
 
 export const checkPartyNameAvailability = (partyName) => async dispatch => {
@@ -74,6 +101,12 @@ const partyReducer = (state = {}, action) => {
             };
 
             return newState;
+        }
+
+        case REMOVE_ONE:{
+          newState = Object.assign({}, state);
+          newState.currentParty = {};
+          return newState;
         }
 
         default:

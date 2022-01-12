@@ -6,7 +6,7 @@ import { restoreSession } from "../../store/session";
 import { getAllVideoGames } from "../../store/videogame";
 import { createParty, checkPartyNameAvailability } from "../../store/party";
 
-import './CreatePartyForm.css'
+import './PartyForm.css'
 
 const CreatePartyForm = () => {
     const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const CreatePartyForm = () => {
     const [ partyNameNotStartWithNum, setPartyNameNotStartWithNum] = useState(false);
     const [ partyNameIsOkToUse, setPartyNameIsOkToUse] = useState(true);
     const [ descriptionIsValid, setDescriptionIsValid ] = useState(false);
+    const [ urlIsValid, setUrlIsValid ] = useState(false);
     const [ formIsvalid, setFormIsvalid ] = useState(false);
 
     const allVideoGames = useSelector(state => state.videoGames);
@@ -34,6 +35,7 @@ const CreatePartyForm = () => {
         setDescriptionIsValid(true);
         setPartyNameNotStartWithNum(true);
         setPartyNameIsOkToUse(true);
+        setUrlIsValid(true);
 
         const startWithNum = new RegExp('^[^0-9]');
         if ( !partyName || videoGameId === '' || space === 0 || !description ) setFormIsvalid(false);
@@ -49,8 +51,13 @@ const CreatePartyForm = () => {
             setFormIsvalid(false);
             setDescriptionIsValid(false);
         }
+        if ( url && (url.length < 6 || url.length > 600) ) {
+            console.log(url.length, 'I am length')
+            setFormIsvalid(false);
+            setUrlIsValid(false);
+        }
         // console.log('validation', partyNameIsValid, descriptionIsValid, formIsvalid)
-    }, [partyName, videoGameId, space, description])
+    }, [partyName, videoGameId, space, description, url])
 
     //fetch all videogames
     useEffect(()=> {
@@ -143,6 +150,7 @@ const CreatePartyForm = () => {
                     onChange={(e) => setUrl(e.target.value)}
                 >
                 </input>
+                <p className="validation-error" hidden={urlIsValid}>Url is too long or too short.</p>
                 <textarea
                     type='text'
                     placeholder="Party description"
@@ -150,7 +158,7 @@ const CreatePartyForm = () => {
                     onChange={(e) => setDescription(e.target.value)}
                     required
                 ></textarea>
-                <p className="validation-error" hidden={descriptionIsValid}>Description must be more than characters long.</p>
+                <p className="validation-error" hidden={descriptionIsValid}>Description must be more than 10 characters long.</p>
                 <div className="create-party-btn-group">
                     <button className='cancel-new-party' type="button" onClick={handleCancle} >Cancel</button>
                     <button className='submit-new-party' type="submit" disabled={!formIsvalid}>Submit</button>
