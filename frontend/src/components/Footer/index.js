@@ -5,18 +5,21 @@ const Footer = () => {
 
     const goToLinkedIn = e => {
         e.preventDefault();
-        window.location.href = 'https://www.linkedin.com/in/meiyinshih/';
+        // window.location.href = 'https://www.linkedin.com/in/meiyinshih/';
+        window.open('https://www.linkedin.com/in/meiyinshih/');
 
     }
 
     const goToGithub = e => {
         e.preventDefault();
-        window.location.href = 'https://github.com/MeiMeiYS';
+        // window.location.href = 'https://github.com/MeiMeiYS';
+        window.open('https://github.com/MeiMeiYS');
     }
 
     const goToMyWeb = e => {
         e.preventDefault();
-        window.location.href = 'https://meiys.me/';
+        // window.location.href = 'https://meiys.me/';
+        window.open('https://meiys.me/');
     }
 
     return (
