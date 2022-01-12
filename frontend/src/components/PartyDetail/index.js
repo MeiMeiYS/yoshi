@@ -56,20 +56,20 @@ const PartyDetail = () => {
       {currentParty && (
         <>
           <div className="party-banner-img-container">
-            <img src={currentParty?.Videogame?.Image?.url}></img>
+            <img crossOrigin="anonymous" src={currentParty?.Videogame?.Image?.url}></img>
           </div>
           <h1>{currentParty.name}</h1>
 
           <div className="party-info-group">
             <div className="party-clan-image">
               {currentParty?.Image?.url ?
-                  <img src={currentParty?.Image?.url}></img> :
-                  <img src={favicon}></img>
+                  <img crossOrigin="anonymous" src={currentParty?.Image?.url}></img> :
+                  <img crossOrigin="anonymous" src={favicon}></img>
                 }
             </div>
             <div className="home-page-vl"></div>
             <div className="party-platform-icon">
-              <img src={platformIcons[currentParty.Videogame.platformId]}></img>
+              <img crossOrigin="anonymous" src={platformIcons[currentParty.Videogame.platformId]}></img>
             </div>
             <div className="detail-page-vl"></div>
             <div className="party-member-container">
@@ -92,8 +92,8 @@ const PartyDetail = () => {
               Host by:{" "}
               <span>
                 {currentParty.User.Image ?
-                  <img src={currentParty.User.Image.url }></img> :
-                  <img src='https://icon-library.com/images/anonymous-person-icon/anonymous-person-icon-18.jpg'></img>
+                  <img crossOrigin="anonymous" src={currentParty.User.Image.url }></img> :
+                  <img crossOrigin="anonymous" src='https://icon-library.com/images/anonymous-person-icon/anonymous-person-icon-18.jpg'></img>
                 }
               </span>
               {currentParty.User.username}

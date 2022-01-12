@@ -23,7 +23,7 @@ const Navigation = () => {
         <nav className='top-nav-bar'>
             <div className='top-brand-logo'>
                 <NavLink className='logo' exact to={`/`}>
-                    <img className='top-nav-favicon' src={favicon}></img>
+                    <img crossOrigin="anonymous" className='top-nav-favicon' src={favicon}></img>
                     {/* <img className='top-nav-logo' src={logo}></img> */}
                     Yoshi
                 </NavLink>
