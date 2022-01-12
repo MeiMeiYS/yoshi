@@ -91,7 +91,10 @@ const PartyDetail = () => {
             <p>
               Host by:{" "}
               <span>
-                <img src={currentParty.User.Image.url}></img>
+                {currentParty.User.Image ?
+                  <img src={currentParty.User.Image.url }></img> :
+                  <img src='https://icon-library.com/images/anonymous-person-icon/anonymous-person-icon-18.jpg'></img>
+                }
               </span>
               {currentParty.User.username}
             </p>

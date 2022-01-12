@@ -82,6 +82,15 @@
     transition: 0.3s;
 }
 
+.user-login-signin-block form button.demo-btn {
+    /* color: var(--base-dark); */
+    font-weight: bold;
+    background-color: #b79b12;
+    box-shadow: 0 4px #67580d;
+    /* #ebc407 */
+}
+
+
 .user-login-signin-block form button:disabled {
     color: grey;
     background-color: rgb(175, 174, 174);
@@ -93,9 +102,19 @@
     background-color: var(--main-purple-hover);
 }
 
+.user-login-signin-block form button.demo-btn:hover {
+    background-color: #d5b308;
+}
+
 .user-login-signin-block form button:active {
     background-color: var(--main-purple-hover);
     box-shadow: 0 0px #666;
+    transform: translateY(4px);
+}
+
+.user-login-signin-block form button.demo-btn:active {
+    background-color: #d5b308;
+    box-shadow: 0 0px #d5b308;
     transform: translateY(4px);
 }
 

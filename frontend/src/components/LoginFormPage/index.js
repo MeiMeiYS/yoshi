@@ -27,14 +27,24 @@ const LoginFormPage = () => {
     return <Redirect exact to="/" />;
   }
 
-  const handleSubmit = (e) => {
+  const handleDemoLogin = e => {
     e.preventDefault();
+    const loginCredentials = {
+      credential: 'demo@user.io',
+      password: 'password',
+    };
+    return dispatch(login(loginCredentials)).catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) setErrors(data.errors);
+    });
+  }
 
+  const handleSubmit = e => {
+    e.preventDefault();
     const loginCredentials = {
       credential,
       password,
     };
-
     return dispatch(login(loginCredentials)).catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) setErrors(data.errors);
@@ -66,7 +76,7 @@ const LoginFormPage = () => {
           ))}
         </ul>
         <button type="submit" disabled={!formIsvalid}>Login</button>
-        <button type="button" >Demo Site</button>
+        <button type="button" className="demo-btn" onClick={handleDemoLogin}>Demo Site</button>
         <div className="link-container">
             <NavLink className="new-account-link" exact to='/signup'>Create a New Account</NavLink>
         </div>
