@@ -27,7 +27,7 @@ module.exports = {
       {url: 'https://res.cloudinary.com/dokjfrn66/image/upload/v1642015219/header_lz4pfw.jpg'},
       //vvv party images
       {url: 'https://image.freepik.com/free-vector/super-car-illustration_74218-152.jpg'},
-      {url: 'https://teamskynite.files.wordpress.com/2014/06/8188997_medium.jpg'},
+      {url: 'https://images.unsplash.com/photo-1595429035839-c99c298ffdde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80'},
       {url: 'https://image.freepik.com/free-vector/coloured-chefdesign_1152-73.jpg'},
   ], {});
   },
