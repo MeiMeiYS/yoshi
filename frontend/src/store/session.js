@@ -12,6 +12,7 @@ const ADD_TO_REQUESTS_FOR_ME = 'myParties/addToRequestsForMe';
 const LOAD_PARTIES_I_BELONGS = 'partiesIBelongs/loadPartiesIBelongs';
 const ADD_TO_PARTIES_I_BELONGS = 'partiesIBelongs/addToPartiesIBelongs';
 const REMOVE_FROM_PARTIES_I_BELONGS = 'partiesIBelongs/removeFromPartiesIBelongs';
+const REMOVE_ONE_FROM_REQUESTS_FOR_ME = 'myParties/removeOneFromRequestsForMe';
 
 
 //------------------------------------------
@@ -72,6 +73,11 @@ const addToMyParties = (parties) => ({
 const addToRequestsForMe = (users) => ({
     type: ADD_TO_REQUESTS_FOR_ME,
     users
+})
+
+const removeOneFromRequestsForMe = (userId) => ({
+    type: REMOVE_ONE_FROM_REQUESTS_FOR_ME,
+    userId
 })
 
 //------------------------------------------
@@ -268,6 +274,13 @@ const sessionReducer = (state = initialState, action) => {
             newState = Object.assign({}, state);
             if (action.partyId) {
                 delete newState.partiesIBelongs[action.partyId]
+            }
+            return newState;
+          }
+          case REMOVE_ONE_FROM_REQUESTS_FOR_ME: {
+            newState = Object.assign({}, state);
+            if (action.userId) {
+                delete newState.requestsForMe[action.userId];
             }
             return newState;
           }

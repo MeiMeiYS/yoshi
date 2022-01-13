@@ -149,7 +149,7 @@ const EditPartyForm = () => {
     <div className="edit-party-block">
       <ul className="login-errors">
           {errors.map((error, i) => (
-            <li key={i} className="page-not-found-error">{error}</li>
+            <li key={error} className="page-not-found-error">{error}</li>
           ))}
       </ul>
       {currentParty && (
@@ -207,7 +207,7 @@ const EditPartyForm = () => {
           </p>
           <ul className="login-errors">
           {errors.map((error, i) => (
-            <li key={i} className="validation-error">{error}</li>
+            <li key={error} className="validation-error">{error}</li>
           ))}
           </ul>
           <div className="edit-party-btn-group">

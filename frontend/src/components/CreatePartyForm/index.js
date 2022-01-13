@@ -130,7 +130,7 @@ const CreatePartyForm = () => {
                 >
                     <option value={''} disabled>--Choose a Video Game--</option>
                     { allVideoGames.gameList ? allVideoGames.gameList.map(game => {
-                        return <option key={game.id} value={game.id}>{game.name}</option>
+                        return <option key={game.name} value={game.id}>{game.name}</option>
                     }) : null }
 
                 </select>

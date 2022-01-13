@@ -112,7 +112,7 @@ const SignupFormPage = () => {
         <p className="validation-error" hidden={confirmPasswordIsValid}>Password and confirm password does not match.</p>
         <ul>
           {errors.map((error, i) => (
-            <li key={i} className="validation-error">{error}</li>
+            <li key={error} className="validation-error">{error}</li>
           ))}
         </ul>
         <button type="submit" disabled={!formIsvalid}>Sign Up</button>

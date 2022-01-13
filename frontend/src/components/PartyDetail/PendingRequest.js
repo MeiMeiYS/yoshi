@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { acceptPartyUser } from "../../store/partyuser";
+import { deletePartyRequest } from "../../store/session";
 
 const PendingRequest = ({ user, sessionUser, partyId }) => {
 
@@ -20,11 +21,15 @@ const PendingRequest = ({ user, sessionUser, partyId }) => {
 
       const handleDecline = e => {
         e.preventDefault();
+        //delete requests
+        return dispatch(deletePartyRequest(user.id, partyId)).then(async (res) => {
+          setDisplay('none');
+        });
     }
 
   return (
     <div className="requested-user" style={{display: `${display}`}}>
-      <p key={user.id}>
+      <p>
         <span>
           {user?.Image ? (
             <img crossOrigin="anonymous" src={user.Image.url}></img>

@@ -13,8 +13,6 @@ const UserDashBoard = () => {
   const myParties = useSelector((state) => state.session.myParties);
   const partiesIBelongs = useSelector((state) => state.session.partiesIBelongs)
 
-  console.log(myParties)
-
     useEffect(() => {
         if (sessionUser) {
           dispatch(fetchMyParties(sessionUser.id));
@@ -55,7 +53,7 @@ const UserDashBoard = () => {
               <PartyBlock
                 party={party}
                 sessionUser={sessionUser}
-                key={party.id}
+                key={`hosted-${party.id}`}
               />
             );
           }) : <p>No party here...</p>
@@ -75,7 +73,7 @@ const UserDashBoard = () => {
               <PartyBlock
                 party={party}
                 sessionUser={sessionUser}
-                key={party.id}
+                key={`joined-${party.id}`}
                 joinedParty={true}
               />
             );
@@ -96,7 +94,7 @@ const UserDashBoard = () => {
               <PartyBlock
                 party={party}
                 sessionUser={sessionUser}
-                key={party.id}
+                key={`requests-${party.id}`}
                 myRequest={true}
               />
             );

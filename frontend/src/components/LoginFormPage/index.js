@@ -76,7 +76,7 @@ const LoginFormPage = () => {
         ></input>
         <ul className="errors-404">
           {errors.map((error, i) => (
-            <li key={i} className="validation-error">{error}</li>
+            <li key={error} className="validation-error">{error}</li>
           ))}
         </ul>
         <button type="submit" disabled={!formIsvalid}>Login</button>

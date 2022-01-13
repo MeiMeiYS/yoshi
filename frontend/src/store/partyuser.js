@@ -2,7 +2,8 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_PARTY_USERS = "partyUsers/loadPartyUsers";
 const ADD_ONE_PARTY_USER = "partyUsers/addOnePartyUser";
-const REMOVE_ONE_PARTY_USRT = "partyUsers/removeOnePartyUser";
+const REMOVE_ONE_PARTY_USER = "partyUsers/removeOnePartyUser";
+
 
 const loadPartyUsers = (partyId, users) => ({
   type: LOAD_PARTY_USERS,
@@ -17,7 +18,7 @@ const addOnePartyUser = (partyId, user) => ({
 });
 
 const removeOnePartyUser = (partyId, userId) => ({
-  type: REMOVE_ONE_PARTY_USRT,
+  type: REMOVE_ONE_PARTY_USER,
   partyId,
   userId,
 });
@@ -62,7 +63,11 @@ const partyuserReducer = (state = {}, action) => {
     case LOAD_PARTY_USERS: {
       newState = Object.assign({}, state);
       if (action.users && action.partyId) {
-        newState[action.partyId] = action.users;
+        const userList = {}
+        action.users.forEach(user => {
+          userList[user.id] = user;
+        })
+        newState[action.partyId] = userList;
       }
       return newState;
     }
@@ -70,19 +75,15 @@ const partyuserReducer = (state = {}, action) => {
     case ADD_ONE_PARTY_USER: {
       newState = Object.assign({}, state);
       if (action.user && action.partyId) {
-        newState[action.partyId] = [...newState[action.partyId], action.user];
+        newState[action.partyId] = {...newState[action.partyId], [action.user.id]: action.user};
       }
       return newState;
     }
 
-    case REMOVE_ONE_PARTY_USRT: {
+    case REMOVE_ONE_PARTY_USER: {
       newState = Object.assign({}, state);
       if (action.userId && action.partyId && newState[action.partyId]) {
-        const newArr = []
-        newState[action.partyId].forEach(user => {
-          if (user.id !== action.userId) newArr.push(user);
-        })
-        newState[action.partyId] = newArr;
+        delete newState[action.partyId][action.userId];
       }
       return newState;
     }
