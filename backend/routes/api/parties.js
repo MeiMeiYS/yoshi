@@ -72,6 +72,17 @@ router.post('/', requireAuth, newPartyValidators, asyncHandler(async (req, res) 
 
 }));
 
+//see all parties by one user
+router.get('^/:userId(\\d+)/myParties', requireAuth, asyncHandler(async (req, res, next) => {
+    const userId = parseInt(req.params.userId, 10);
+    const parties = await Party.findAll({ where: {ownerId: userId}, include: [
+        {model: Videogame, include: {model: Image}},
+        {model: User, include: {model: Image} },
+        Image] });
+    return res.json(parties);
+}));
+
+//browse one party
 router.get('^/:id(\\d+)', asyncHandler(async (req, res, next) => {
     const partyId = parseInt(req.params.id, 10);
     const party = await Party.findByPk(partyId,{ include: [

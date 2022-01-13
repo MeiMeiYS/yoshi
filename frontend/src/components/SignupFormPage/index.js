@@ -21,6 +21,10 @@ const SignupFormPage = () => {
   const [ errors, setErrors ] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
+
+  useEffect(() => {
     setFormIsvalid(true);
     setUsernameIsValid(true);
     setEmailIsValid(true);

@@ -15,6 +15,10 @@ const LoginFormPage = () => {
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
+
+  useEffect(() => {
     setFormIsvalid(true);
 
 

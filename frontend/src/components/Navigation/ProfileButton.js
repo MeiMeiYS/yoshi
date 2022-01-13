@@ -13,6 +13,7 @@ const ProfileButton = ({ sessionUser }) => {
     const signupBtn = useRef();
     const logoutBtn = useRef();
     const createPartyBnt = useRef();
+    const myPartiesBnt = useRef();
 
     const [ showUserMenu, setShowUserMenu ] = useState(false);
 
@@ -40,7 +41,8 @@ const ProfileButton = ({ sessionUser }) => {
             if ( loginBtn?.current?.contains(e.target) ||
                 signupBtn?.current?.contains(e.target) ||
                 logoutBtn?.current?.contains(e.target) ||
-                createPartyBnt?.current?.contains(e.target) ){
+                createPartyBnt?.current?.contains(e.target) ||
+                myPartiesBnt?.current?.contains(e.target) ){
                     setShowUserMenu(false);
             }
         };
@@ -62,6 +64,9 @@ const ProfileButton = ({ sessionUser }) => {
                         <p>Hi! {sessionUser.username}</p>
                     </div>
                     <hr/>
+                    <div>
+                        <NavLink ref={myPartiesBnt} to={`/users/${sessionUser.id}`}>My Parties</NavLink>
+                    </div>
                     <div>
                         <NavLink ref={createPartyBnt} to={`/parties/new`}>Create Party</NavLink>
                     </div>

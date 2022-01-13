@@ -61,6 +61,7 @@ const CreatePartyForm = () => {
     useEffect(()=> {
         dispatch(restoreSession());
         dispatch(getAllVideoGames());
+        window.scrollTo(0, 0);
     }, [dispatch])
 
     useEffect(()=> {

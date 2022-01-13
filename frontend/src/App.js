@@ -6,7 +6,8 @@ import PartyBrowser from './components/PartyBrowser';
 import PartyDetail from './components/PartyDetail';
 import EditPartyForm from './components/CreatePartyForm/EditPartyForm';
 import LoginFormPage from "./components/LoginFormPage";
-import SignupFormPage from "./components/SignupFormPage"
+import SignupFormPage from "./components/SignupFormPage";
+import UserDashBoard from './components/UserDashBoard';
 import Footer from './components/Footer';
 
 import CreatePartyForm from './components/CreatePartyForm';
@@ -38,6 +39,9 @@ function App() {
             </Route>
             <Route exact path="/parties/:partyId">
                 <PartyDetail />
+            </Route>
+            <Route exact path="/users/:userId">
+                <UserDashBoard />
             </Route>
             <Route>
                 <h1 style={{color: 'white'}}>404: Page not found</h1>

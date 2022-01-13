@@ -5,6 +5,7 @@ const ADD_ONE = 'parties/addOne';
 const UPDATE_ONE = 'parties/updateOne';
 const REMOVE_ONE = 'parties/removeOne';
 
+
 const load = allParties => ({
     type: LOAD,
     allParties

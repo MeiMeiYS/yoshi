@@ -6,6 +6,7 @@ const platformsRouter = require('./platforms.js');
 const imagesRouter = require('./images.js');
 const videogameRouter = require('./videogames.js');
 const partiesRouter = require('./parties.js');
+const requestRouter = require('./requests.js');
 // const asyncHandler = require('express-async-handler');
 // const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth.js');
 // const { User } = require('../../db/models');
@@ -17,6 +18,7 @@ router.use('/platforms', platformsRouter);
 router.use('/images', imagesRouter);
 router.use('/videogames', videogameRouter);
 router.use('/parties', partiesRouter);
+router.use('/requests', requestRouter);
 
 //vvv Testing Auth
 router.post('/test', (req, res) => {

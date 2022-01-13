@@ -118,7 +118,8 @@
 }
 
 .party-detail-request-btn,
-.party-detail-edit-btn {
+.party-detail-edit-btn,
+.party-detail-remove-request-btn {
     height: 35px;
     width: 150px;
     border-radius: 5px;
@@ -130,21 +131,54 @@
     outline: none;
     border: none;
     transition: 0.3s;
-    background-color: var(--main-purple);
-    box-shadow: 0 4px #312548;
     color: whitesmoke;
     margin: 0 20px;
+    transition: 0.25s;
 }
 
-.party-detail-request-btn:hover,
+.party-detail-edit-btn {
+    background-color: var(--base-dark-hover);
+    box-shadow: 0 4px var(--base-dark-hover2);
+}
+
+.party-detail-request-btn {
+    background-color: var(--main-purple);
+    box-shadow: 0 4px #312548;
+}
+
+.party-detail-remove-request-btn {
+    background-color: var(--danger-red);
+    box-shadow: 0 4px var(--danger-darkred);
+}
+
 .party-detail-edit-btn:hover {
+    background-color: var(--base-dark-hover2);
+}
+
+.party-detail-request-btn:hover {
     background-color: var(--main-purple-hover);
 }
 
-.party-detail-request-btn:active,
+.party-detail-remove-request-btn:hover {
+    background-color: var(--danger-red-hover);
+}
+
 .party-detail-edit-btn:active {
+    background-color: var(--base-dark-hover2);
+    box-shadow: 0 0px darkgrey;
+    transform: translateY(4px);
+}
+
+.party-detail-request-btn:active {
     background-color: var(--main-purple-hover);
     box-shadow: 0 0px #666;
+    transform: translateY(4px);
+}
+
+
+.party-detail-remove-request-btn:active {
+    background-color: var(--danger-red-hover);
+    box-shadow: 0 0px var(--danger-darkred);
     transform: translateY(4px);
 }
 
