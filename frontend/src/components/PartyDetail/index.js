@@ -3,6 +3,7 @@ import { Redirect, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./PartyDetail.css";
 import favicon from "../../images/favicon.png";
+import anonymousPerson from "../../images/anonymous-person.jpeg"
 import { fetchOneParty } from "../../store/party";
 import { fetchAllPartyUsers, deletePartyUser } from "../../store/partyuser";
 import {
@@ -164,7 +165,7 @@ const PartyDetail = () => {
                     src={currentParty.User.Image.url}
                   ></img>
                 ) : (
-                  <img src="https://icon-library.com/images/anonymous-person-icon/anonymous-person-icon-18.jpg"></img>
+                  <img src={anonymousPerson}></img>
                 )}
               </span>
               {currentParty?.User?.username === sessionUser?.username
