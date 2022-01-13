@@ -6,6 +6,7 @@ const UPDATE_ONE = 'parties/updateOne';
 const REMOVE_ONE = 'parties/removeOne';
 
 
+
 const load = allParties => ({
     type: LOAD,
     allParties
@@ -25,6 +26,9 @@ const removeOne = (partyId) => ({
   type: REMOVE_ONE,
   partyId
 })
+
+
+//------------------------------------------
 
 export const fetch12Parties = () => async dispatch => {
   const response = await fetch("/api/parties");

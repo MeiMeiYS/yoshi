@@ -8,6 +8,7 @@ const ADD_ONE_TO_MY_REQUESTS = 'request/addOneToMyRequests';
 const REMOVE_ONE_FROM_MY_REQUESTS = 'request/removeOneFromMyRequests';
 const LOAD_MY_REQUESTS = 'request/loadMyRequests';
 const ADD_TO_MY_PARTIES = 'myParties/addToMyParties';
+const ADD_TO_REQUESTS_FOR_ME = 'myParties/addToRequestsForMe';
 
 export const setSessionUser = (sessionUser) => {
     return {
@@ -46,6 +47,11 @@ const addToMyParties = (parties) => ({
     parties
 })
 
+const addToRequestsForMe = (users) => ({
+    type: ADD_TO_REQUESTS_FOR_ME,
+    users
+})
+
 //------------------------------------------
 
 export const fetchMyParties = (userId) => async dispatch => {
@@ -53,6 +59,14 @@ export const fetchMyParties = (userId) => async dispatch => {
     if (response.ok) {
         const parties = await response.json();
         dispatch(addToMyParties(parties));
+    }
+}
+
+export const fetchRequestsForMyParty = (partyId) => async dispatch => {
+    const response = await fetch(`/api/requests/${partyId}/party`);
+    if (response.ok) {
+        const users = await response.json();
+        dispatch(addToRequestsForMe(users));
     }
 }
 
@@ -68,7 +82,7 @@ export const fetchPartyRequests = (userId) => async dispatch => {
 }
 
 export const sendPartyRequest = (userId, partyId) => async dispatch => {
-    const response = await csrfFetch(`/api/requests/${userId}/user`, {
+    const response = await csrfFetch(`/api/requests`, {
         method: "POST",
         body: JSON.stringify({userId, partyId}),
         });
@@ -154,7 +168,7 @@ const sessionReducer = (state = initialState, action) => {
         case REMOVE_SESSION_USER:{
             // newState = Object.assign({}, state);
             // newState.user = null;
-            return null;
+            return {};
         }
         case ADD_ONE_TO_MY_REQUESTS:{
             newState = Object.assign({}, state);
@@ -189,6 +203,17 @@ const sessionReducer = (state = initialState, action) => {
                     parties[party.id] = party;
                 })
                 newState.myParties = parties;
+            }
+            return newState;
+          }
+          case ADD_TO_REQUESTS_FOR_ME: {
+            newState = Object.assign({}, state);
+            if (action.users) {
+                const users = {};
+                action.users.forEach(user => {
+                    users[user.id] = user;
+                })
+                newState.requestsForMe = users;
             }
             return newState;
           }

@@ -2,9 +2,16 @@ import { useEffect, useState } from "react";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./PartyDetail.css";
-import favicon from '../../images/favicon.png';
+import favicon from "../../images/favicon.png";
 import { fetchOneParty } from "../../store/party";
-import { sendPartyRequest, deletePartyRequest, fetchPartyRequests } from "../../store/session";
+import { fetchAllPartyUsers, deletePartyUser } from "../../store/partyuser";
+import {
+  sendPartyRequest,
+  deletePartyRequest,
+  fetchPartyRequests,
+  fetchRequestsForMyParty,
+} from "../../store/session";
+import PendingRequest from "./PendingRequest";
 
 const platformIcons = {
   1: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAclBMVEX///8AAACHh4f5+fl0dHTy8vKRkZFpaWlJSUkfHx+ZmZmgoKDt7e1mZmYbGxvp6ek8PDzJycnj4+MnJycWFhZQUFDb29uBgYFdXV3AwMBYWFi4uLitra1TU1MICAg1NTXFxcWenp7U1NQ3Nzd6enpAQEAgyE4lAAAEcUlEQVR4nO3d6XaqMBQFYJGCA1o04IAiWi3v/4rXgNYFipyEBG5wf7+6ViVkiyQhTIMBAAAAAAAAAAAAAAAAAAAAAAAAAAC0ynY60Vo+5s3HXdhOz2IVdWYC7Mdyp8DqSugJ5IsvYoUH+3vARE/taegRPfHC42xBe6W+2gJC6s54nogXnjC+5Fp9rYVQN2IsU/heekmFvvT9SC1rypec8r+Sw6h925Cvei6a8Hu8qjEOnxNOBJttJZxUJqHn13cUzEvKCb+XGpNU8RfiCamb4pyYmpDcufyYmpA80FsfzUy4sOs/mJsdzEw4Jid0dkjYAiQs+pSE5MLtrZkJJ78bot/AzISizEsYuFMi19Aev//74Qe0pUj4BwlbgYRFH5IwZdQ5/bWhx4dh3TTbY77t28yEVkiWmJnwcloSRWMzE/a/pUHCByRsBRIWIWGJqQkX5zXR0tD+UJR5CZOAzNBRG2aiHkxtafqfMO39GdL+n+W+XalG/riBCYM17dMsNDWhlcT+rPbKXBabe8XQ1XG3rbH7u2DWzIQikFAzJCxCQiREQh2QsAgJkRAJdUDCIiREQiTUAQmLkBAJkVAHJCxCQiREQh2QsKhhwkkXCWdS9+NLJrS+Jx2w2knY/+di+KqrLCjSnnAwUl1nIUfq9SMNEq4XqmstIKRuwiYJB2ynut5kKb0Nb5Jw4CyHoznJaFxb6IRY1NUm8skBmyUUENUWehAvlKSthHu+XBBHL/3wf67Uh8u0mTDZV/037knCI6v6L+tJQqtyG3p9SZhMX++HrtWXhG8hoSwkREJ16wnVhyOuWUlC56jle6PQknA92pWQij0Wl9mqeSajloSKjo1H5Jsk2k6o7NmtSiby5J/QWk3Z9MZORcK1xPOcJ5Uj6IzMg3srEG+SeE98IyY1958MlQUkzxi+J/zM6sv7BsBXtwnJd7q8x2+D2VMf986HJouaAqOhMuQJtdqE5JL4dMtFyWpbJJfQjlzXVbexxFxXHQn0lXIJs+Zk5HZiztc9FEv44zMS37sl5BMrilo6Cb987fcuyy69geJ54x5EGzg+sck3YfK+W9TIeXy/bPjUoa/i0nyxcIcY326WVTNslMLvKM86rfxkaVlaHHTZgj305rrM6Za0K9F9/dOKSg4L377tCZxEOsb8nmG+I0wEzh2oxtLbV125i5UODgTeFpN9NzYvg3qWWYuNlQ+Pq98+0uzgMpt06eIahT/L28+0+te3bVQ+PzwK2nthzyt8NJ3mTc5rjd7acA6ef+hty6bJ2buOoElDyItNTqrqKuecNyesOqErX3j2Cp1Dd51hxuFDt52Tb8uXBIZ1ZazhN6RGNsG0HMwq25oGNcxGCDN1dZXDgnw7sappmAb7YTa5q66qTavBvl4GTOUHJPmrutyO90M73wF5p2xHL/qMQ4PDgk3lvt2B+8DKLz6SrNE+5HR3mdAL9KcjCej6msQCPeOOaPj1nxjWTL7Ls/8TuvIBAAAAAAAAAAAAAAAAAAAAAAAAAHyof8t2pNK11x6vAAAAAElFTkSuQmCC",
@@ -25,86 +32,117 @@ const PartyDetail = () => {
 
   const currentParty = useSelector((state) => state.parties[partyId]);
   const myRequests = useSelector((state) => state.session.myRequests);
+  const requestsForMe = useSelector((state) => state.session.requestsForMe);
+  const currentMembers = useSelector((state) => state.partyuser[partyId]);
   const [errors, setErrors] = useState([]);
 
-  const [ requested, setRequested ] = useState(false);
+  const [requested, setRequested] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    dispatch(fetchOneParty(partyId)).then(async (res)=> {
-      if (res && res.errors) setErrors(res.errors)
-    })
-  }, []);
+    dispatch(fetchOneParty(partyId)).then(async (res) => {
+      if (res && res.errors) setErrors(res.errors);
+    });
+    dispatch(fetchAllPartyUsers(partyId));
+  }, [dispatch]);
 
   useEffect(() => {
-    if (sessionUser) dispatch(fetchPartyRequests(sessionUser.id))
+    if (sessionUser) {
+      dispatch(fetchPartyRequests(sessionUser.id));
+      dispatch(fetchRequestsForMyParty(partyId));
+    }
   }, [sessionUser]);
 
   useEffect(() => {
     if (myRequests && myRequests[partyId]) setRequested(true);
   }, [myRequests]);
 
+  const usersWhoSentRequests = [];
+  // turn data back to array
+  for (const user in requestsForMe) {
+    usersWhoSentRequests.push(requestsForMe[user]);
+  }
 
   //test the route to see id partyId is only digits, if not redirect to '/'
   const validDigits = /^\d+$/;
-  if (!validDigits.test(partyId)) return <Redirect to="/" />
+  if (!validDigits.test(partyId)) return <Redirect to="/" />;
 
-
-
-  const handleRequest = e => {
-      e.preventDefault();
-      if (sessionUser){
-        alert('request sent!');
-        return dispatch(sendPartyRequest(sessionUser.id, partyId));
-      }
-      else history.push(`/login`);
+  const handleDeleteMember = e => {
+    e.preventDefault();
+    if (sessionUser) {
+      alert("Member deleted!");
+      const userId = e.target.id;
+      console.log(userId)
+      return dispatch(deletePartyUser(userId, partyId));
+    } else history.push(`/login`);
   }
 
-  const handleRemoveRequest = e => {
-    if (sessionUser){
-      alert('request deleted!');
-      return dispatch(deletePartyRequest(sessionUser.id, partyId)).then(async (res) => {
-        setRequested(false);
-      });
-    }
-    else history.push(`/login`);
-  }
+  const handleRequest = (e) => {
+    e.preventDefault();
+    if (sessionUser) {
+      alert("request sent!");
+      return dispatch(sendPartyRequest(sessionUser.id, partyId));
+    } else history.push(`/login`);
+  };
 
-  const handleEdit = e => {
+  const handleRemoveRequest = (e) => {
+    if (sessionUser) {
+      alert("request deleted!");
+      return dispatch(deletePartyRequest(sessionUser.id, partyId)).then(
+        async (res) => {
+          setRequested(false);
+        }
+      );
+    } else history.push(`/login`);
+  };
+
+  const handleEdit = (e) => {
     e.preventDefault();
     history.push(`/parties/${partyId}/edit`);
-  }
+  };
 
   return (
     <div className="party-detail-page">
       <ul className="login-errors">
-          {errors.map((error, i) => (
-            <li key={i} className="page-not-found-error">{error}</li>
-          ))}
+        {errors.map((error, i) => (
+          <li key={i} className="page-not-found-error">
+            {error}
+          </li>
+        ))}
       </ul>
       {currentParty && (
         <>
           <div className="party-banner-img-container">
-            <img crossOrigin="anonymous" src={currentParty?.Videogame?.Image?.url}></img>
+            <img
+              crossOrigin="anonymous"
+              src={currentParty?.Videogame?.Image?.url}
+            ></img>
           </div>
           <h1>{currentParty.name}</h1>
 
           <div className="party-info-group">
             <div className="party-clan-image">
-              {currentParty?.Image?.url ?
-                  <img crossOrigin="anonymous" src={currentParty?.Image?.url}></img> :
-                  <img crossOrigin="anonymous" src={favicon}></img>
-                }
+              {currentParty?.Image?.url ? (
+                <img
+                  crossOrigin="anonymous"
+                  src={currentParty?.Image?.url}
+                ></img>
+              ) : (
+                <img crossOrigin="anonymous" src={favicon}></img>
+              )}
             </div>
             <div className="home-page-vl"></div>
             <div className="party-platform-icon">
-              <img crossOrigin="anonymous" src={platformIcons[currentParty.Videogame.platformId]}></img>
+              <img
+                crossOrigin="anonymous"
+                src={platformIcons[currentParty?.Videogame?.platformId]}
+              ></img>
             </div>
             <div className="detail-page-vl"></div>
             <div className="party-member-container">
               <p>Members</p>
               <div className="party-member-count">
-                {/* need to fetch member number here and space */}
+                {`${currentMembers?.length}/${currentParty.space}`}
               </div>
             </div>
             <div className="detail-page-vl"></div>
@@ -118,34 +156,105 @@ const PartyDetail = () => {
 
           <div className="party-host-container">
             <p>
-              Host by:{" "}
+              Host by:
               <span>
-                {currentParty.User.Image ?
-                  <img crossOrigin="anonymous" src={currentParty.User.Image.url }></img> :
-                  <img crossOrigin="anonymous" src='https://icon-library.com/images/anonymous-person-icon/anonymous-person-icon-18.jpg'></img>
-                }
+                {currentParty?.User?.Image ? (
+                  <img
+                    crossOrigin="anonymous"
+                    src={currentParty.User.Image.url}
+                  ></img>
+                ) : (
+                  <img src="https://icon-library.com/images/anonymous-person-icon/anonymous-person-icon-18.jpg"></img>
+                )}
               </span>
-              {currentParty.User.username}
+              {currentParty?.User?.username === sessionUser?.username
+                ? `${currentParty?.User?.username} (you)`
+                : currentParty?.User?.username}
             </p>
           </div>
 
-          <div className="party-detail-description">{currentParty.description}</div>
+          <div className="party-detail-description">
+            {currentParty?.description}
+          </div>
           <hr className="party-detail-hr" />
           <div className="party-detail-game-info">
-            <h2>About this game: {currentParty.Videogame.name}</h2>
-            <p>{currentParty.Videogame.description}</p>
+            <h2>About this game: {currentParty?.Videogame?.name}</h2>
+            <p>{currentParty?.Videogame?.description}</p>
+          </div>
+          <hr className="party-detail-hr" />
+
+          <div className="party-detail-game-info">
+            <h2>Current member:</h2>
+            <div className="current-member-container">
+              {currentMembers?.length
+                ? currentMembers.map((user) => {
+                    return (
+                      <p key={user.id}>
+                        <span>
+                          {user?.Image ? (
+                            <img
+                              crossOrigin="anonymous"
+                              src={user.Image.url}
+                            ></img>
+                          ) : (
+                            <img src="https://icon-library.com/images/anonymous-person-icon/anonymous-person-icon-18.jpg"></img>
+                          )}
+                        </span>
+                        {user.username}
+                        {sessionUser?.id === currentParty?.ownerId &&
+                          <button id={user.id} className="delete-member-btn" onClick={handleDeleteMember}>X</button>
+                        }
+                      </p>
+                    );
+                  })
+                : <div>No member yet...</div>}
+            </div>
           </div>
 
-          {sessionUser && sessionUser.id === currentParty?.User?.id ?
-            (
+          {usersWhoSentRequests.length &&
+            sessionUser?.id === currentParty?.ownerId && (
+              <div className="user-request-container">
+                <h2>Pending requests:</h2>
+                {usersWhoSentRequests.map((user) => {
+                  return (
+                    <PendingRequest
+                      key={user.id}
+                      user={user}
+                      sessionUser={sessionUser}
+                      partyId={partyId}
+                    />
+                  );
+                })}
+              </div>
+            )}
+
+          {sessionUser && sessionUser.id === currentParty?.User?.id ? (
             <div className="user-party-control-btn">
-              <button type="button" className="party-detail-edit-btn" onClick={handleEdit}>Edit party</button>
+              <button
+                type="button"
+                className="party-detail-edit-btn"
+                onClick={handleEdit}
+              >
+                Edit party
+              </button>
             </div>
-            ) :
-            !requested ?
-            (<button type="button" className="party-detail-request-btn" onClick={handleRequest}>Request to join</button>) :
-            (<button type="button" className="party-detail-remove-request-btn" onClick={handleRemoveRequest}>Remove request</button>)
-          }
+          ) : !requested ? (
+            <button
+              type="button"
+              className="party-detail-request-btn"
+              onClick={handleRequest}
+            >
+              Request to join
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="party-detail-remove-request-btn"
+              onClick={handleRemoveRequest}
+            >
+              Remove request
+            </button>
+          )}
         </>
       )}
     </div>

@@ -75,7 +75,15 @@
     max-width: 700px;
 }
 
-.party-host-container p {
+.current-member-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.party-host-container p,
+.user-request-container p,
+.current-member-container p {
     color: whitesmoke;
     display: flex;
     flex-direction: row;
@@ -84,7 +92,16 @@
     margin: 10px 0;
 }
 
-.party-host-container span {
+.current-member-container p {
+    background-color: var(--base-dark);
+    margin: 10px;
+    padding: 8px 60px 8px 0px;
+    border-radius: 10px;
+}
+
+.party-host-container span,
+.user-request-container span,
+.current-member-container span {
     display: inline-block;
     height: 55px;
     width: 55px;
@@ -93,14 +110,17 @@
     margin: 0 10px;
 }
 
-.party-host-container span img {
+.party-host-container span img,
+.user-request-container span img,
+.current-member-container span img {
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
 
 .party-detail-page  .party-detail-description,
-.party-detail-page .party-detail-game-info {
+.party-detail-page .party-detail-game-info,
+.user-request-container {
     margin-bottom: 40px;
     width: 90%;
     max-width: 700px;
@@ -185,6 +205,96 @@
 .user-party-control-btn {
     display: flex;
     flex-direction: row;
+}
+
+.delete-member-btn {
+    height: 25px;
+    width: 25px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--danger-red);
+    /* margin: 0 15px 0 50px; */
+    position: relative;
+    left: 45px;
+    color: whitesmoke;
+    transition: 0.25s;
+    box-shadow: 2px 2px var(--danger-darkred);
+}
+
+.delete-member-btn:hover {
+    background-color: var(--danger-red-hover);
+}
+
+.delete-member-btn:active {
+    background-color: var(--danger-red-hover);
+    transform: translateY(3px);
+}
+
+
+
+/* ------------------request for me------------------ */
+
+.user-request-container .requested-user {
+    background-color: var(--base-dark);
+    border-radius: 15px;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+}
+
+.user-request-container .request-for-me-btn-group {
+    display: flex;
+    flex-direction: row;
+}
+
+.user-request-container .request-for-me-btn-group button {
+    height: 35px;
+    width: 80px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    transition: 0.3s;
+    color: whitesmoke;
+    margin: 0 8px;
+    transition: 0.25s;
+}
+
+.user-request-container .request-for-me-btn-group .accept {
+    background-color: green;
+    box-shadow: 0 4px darkslategray;
+}
+
+.user-request-container .request-for-me-btn-group .decline {
+    background-color: var(--danger-red);
+    box-shadow: 0 4px var(--danger-darkred);
+}
+
+.user-request-container .request-for-me-btn-group .accept:hover {
+    background-color: darkgreen;
+}
+
+.user-request-container .request-for-me-btn-group .decline:hover {
+    background-color: var(--danger-red-hover);
+}
+
+.user-request-container .request-for-me-btn-group .accept:active {
+    background-color: darkgreen;
+    box-shadow: 0 0px darkslategray;
+    transform: translateY(4px);
+}
+
+.user-request-container .request-for-me-btn-group .decline:active {
+    background-color: var(--danger-red-hover);
+    box-shadow: 0 0px var(--danger-darkred);
+    transform: translateY(3px);
 }
 
 /* ------------------media query------------------ */

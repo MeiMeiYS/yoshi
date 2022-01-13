@@ -33,9 +33,8 @@ router.get('^/:id(\\d+)/user', asyncHandler(async (req, res) => {
 }));
 
 //post a request
-router.post('^/:id(\\d+)/user', requireAuth, requestValidators, asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    const { partyId } = req.body;
+router.post('/', requireAuth, requestValidators, asyncHandler(async (req, res) => {
+    const { partyId, userId } = req.body;
     await Request.create({ partyId, userId});
     const party = await Party.findByPk(partyId, { include: [
         {model: Videogame, include: {model: Image}},
@@ -49,7 +48,20 @@ router.delete('^/:id(\\d+)/user', requireAuth, requestValidators, asyncHandler(a
     const userId = parseInt(req.params.id, 10);
     const { partyId } = req.body;
     await Request.destroy({where: {userId, partyId}})
-    return res.json(partyId);;
+    return res.json(partyId);
 }))
+
+//find all users that are requesting to join this party
+router.get('^/:id(\\d+)/party', asyncHandler(async (req, res) => {
+    const partyId = parseInt(req.params.id, 10);
+    const requests = await Request.findAll({where: {partyId}})
+    const users = [];
+
+    for (let i = 0; i < requests.length; i++){
+        const user = await User.findByPk(requests[i].userId, { include: Image });
+        users.push(user)
+    }
+    return res.json(users);
+}));
 
 module.exports = router;

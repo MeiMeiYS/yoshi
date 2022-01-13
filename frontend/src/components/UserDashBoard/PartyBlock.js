@@ -17,13 +17,12 @@ const platformIcons = {
 };
 
 
-const PartyBlock = ({ party, sessionUser, myParty, myRequest }) => {
+const PartyBlock = ({ party, sessionUser, myRequest }) => {
 
     const history = useHistory();
     const dispatch = useDispatch();
 
     const [ display, setDisplay ] = useState(true);
-    console.log('reoihfkerhfjew', myParty)
 
 
     const handleRemoveRequest = (e) => {
