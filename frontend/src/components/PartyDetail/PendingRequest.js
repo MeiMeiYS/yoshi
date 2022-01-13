@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { acceptPartyUser } from "../../store/partyuser";
 import { deletePartyRequest } from "../../store/session";
+import anonymousPerson from "../../images/anonymous-person.jpeg";
 
 const PendingRequest = ({ user, sessionUser, partyId }) => {
 
@@ -34,7 +35,7 @@ const PendingRequest = ({ user, sessionUser, partyId }) => {
           {user?.Image ? (
             <img crossOrigin="anonymous" src={user.Image.url}></img>
           ) : (
-            <img src="https://icon-library.com/images/anonymous-person-icon/anonymous-person-icon-18.jpg"></img>
+            <img src={anonymousPerson}></img>
           )}
         </span>
         {user.username}

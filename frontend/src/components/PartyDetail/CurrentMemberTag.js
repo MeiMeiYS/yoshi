@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deletePartyUser } from "../../store/partyuser";
+import anonymousPerson from "../../images/anonymous-person.jpeg";
 
 const CurrentMemberTag = ({ user, sessionUser, currentParty, partyId }) => {
 
@@ -28,7 +29,7 @@ const CurrentMemberTag = ({ user, sessionUser, currentParty, partyId }) => {
         {user?.Image ? (
           <img crossOrigin="anonymous" src={user?.Image?.url}></img>
         ) : (
-          <img src="https://icon-library.com/images/anonymous-person-icon/anonymous-person-icon-18.jpg"></img>
+          <img src={anonymousPerson}></img>
         )}
       </span>
       {user?.username}
