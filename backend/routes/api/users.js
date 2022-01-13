@@ -49,4 +49,16 @@ router.get('/:id(\\d+)/requests', asyncHandler(async (req, res) => {
   return res.json(requests);
 }));
 
+//adding or changing user image: PUT /api/users/id
+router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
+  const { url } = req.body;
+  const userId = parseInt(req.params.id, 10);
+  const user = await User.findByPk(userId);
+  if ( url ) {
+    const image = await Image.create({ url });
+    await user.update({ imageId: image.id });
+  }
+    return res.json(user);
+}));
+
 module.exports = router;

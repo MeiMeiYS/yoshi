@@ -77,7 +77,7 @@ const partyuserReducer = (state = {}, action) => {
 
     case REMOVE_ONE_PARTY_USRT: {
       newState = Object.assign({}, state);
-      if (action.userId && action.partyId) {
+      if (action.userId && action.partyId && newState[action.partyId]) {
         const newArr = []
         newState[action.partyId].forEach(user => {
           if (user.id !== action.userId) newArr.push(user);

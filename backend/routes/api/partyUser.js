@@ -28,6 +28,21 @@ router.get('^/:id(\\d+)', asyncHandler(async (req, res) => {
     return res.json(users);
 }));
 
+//send all parties that this current member joined
+router.get('^/:id(\\d+)/user', asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const partyUsers = await PartyUser.findAll({where: {userId}})
+    const parties = [];
+    for (let i = 0; i < partyUsers.length; i++){
+        const party = await Party.findByPk(partyUsers[i].partyId, { include: [
+            {model: Videogame, include: {model: Image}},
+            {model: User, include: {model: Image} },
+              Image] });
+        parties.push(party)
+    }
+    return res.json(parties);
+}));
+
 //delete member from party
 router.delete('/', requireAuth, asyncHandler(async (req, res) => {
     const { partyId, userId } = req.body;

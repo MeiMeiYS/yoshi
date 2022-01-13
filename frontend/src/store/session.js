@@ -9,6 +9,28 @@ const REMOVE_ONE_FROM_MY_REQUESTS = 'request/removeOneFromMyRequests';
 const LOAD_MY_REQUESTS = 'request/loadMyRequests';
 const ADD_TO_MY_PARTIES = 'myParties/addToMyParties';
 const ADD_TO_REQUESTS_FOR_ME = 'myParties/addToRequestsForMe';
+const LOAD_PARTIES_I_BELONGS = 'partiesIBelongs/loadPartiesIBelongs';
+const ADD_TO_PARTIES_I_BELONGS = 'partiesIBelongs/addToPartiesIBelongs';
+const REMOVE_FROM_PARTIES_I_BELONGS = 'partiesIBelongs/removeFromPartiesIBelongs';
+
+
+//------------------------------------------
+
+export const loadPartiesIBelongs = (parties) => {
+    return {
+        type: LOAD_PARTIES_I_BELONGS,
+        parties
+    };
+};
+
+export const removeFromPartiesIBelongs = (partyId) => {
+    return {
+        type: REMOVE_FROM_PARTIES_I_BELONGS,
+        partyId
+    };
+};
+
+//------------------------------------------
 
 export const setSessionUser = (sessionUser) => {
     return {
@@ -51,6 +73,18 @@ const addToRequestsForMe = (users) => ({
     type: ADD_TO_REQUESTS_FOR_ME,
     users
 })
+
+//------------------------------------------
+
+export const fetchAllPartiesIBelonges = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/partyUsers/${userId}/user`, {
+      method: "GET",
+    });
+    if (response.ok) {
+      const parties = await response.json();
+      dispatch(loadPartiesIBelongs(parties));
+    }
+  };
 
 //------------------------------------------
 
@@ -214,6 +248,26 @@ const sessionReducer = (state = initialState, action) => {
                     users[user.id] = user;
                 })
                 newState.requestsForMe = users;
+            }
+            return newState;
+          }
+
+          case LOAD_PARTIES_I_BELONGS: {
+            newState = Object.assign({}, state);
+            if (action.parties) {
+                const parties = {};
+                action.parties.forEach(party => {
+                    parties[party.id] = party;
+                })
+                newState.partiesIBelongs = parties;
+            }
+            return newState;
+          }
+
+          case REMOVE_FROM_PARTIES_I_BELONGS: {
+            newState = Object.assign({}, state);
+            if (action.partyId) {
+                delete newState.partiesIBelongs[action.partyId]
             }
             return newState;
           }

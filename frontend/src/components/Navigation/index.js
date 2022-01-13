@@ -28,13 +28,12 @@ const Navigation = () => {
                     Yoshi
                 </NavLink>
             </div>
-            <div className='top-search-bar'>
+            {/* <div className='top-search-bar'>
                 <input
                     placeholder='Search'>
-                    {/* To Do: make is a controled input */}
                 </input>
                 <button><i className="fas fa-search"></i></button>
-            </div>
+            </div> */}
             <div className='top-user-section'>
                 {sessionUser && <span>Hi! {sessionUser.username}</span>}
                 {sessionUser ? null :

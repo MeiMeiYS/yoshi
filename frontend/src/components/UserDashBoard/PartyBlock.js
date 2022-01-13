@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import "./UserDashBoard.css";
 import favicon from "../../images/favicon.png";
-import { deletePartyRequest } from "../../store/session";
+import { deletePartyRequest, removeFromPartiesIBelongs } from "../../store/session";
+import { deletePartyUser } from "../../store/partyuser";
 
 const platformIcons = {
     1: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAclBMVEX///8AAACHh4f5+fl0dHTy8vKRkZFpaWlJSUkfHx+ZmZmgoKDt7e1mZmYbGxvp6ek8PDzJycnj4+MnJycWFhZQUFDb29uBgYFdXV3AwMBYWFi4uLitra1TU1MICAg1NTXFxcWenp7U1NQ3Nzd6enpAQEAgyE4lAAAEcUlEQVR4nO3d6XaqMBQFYJGCA1o04IAiWi3v/4rXgNYFipyEBG5wf7+6ViVkiyQhTIMBAAAAAAAAAAAAAAAAAAAAAAAAAAC0ynY60Vo+5s3HXdhOz2IVdWYC7Mdyp8DqSugJ5IsvYoUH+3vARE/taegRPfHC42xBe6W+2gJC6s54nogXnjC+5Fp9rYVQN2IsU/heekmFvvT9SC1rypec8r+Sw6h925Cvei6a8Hu8qjEOnxNOBJttJZxUJqHn13cUzEvKCb+XGpNU8RfiCamb4pyYmpDcufyYmpA80FsfzUy4sOs/mJsdzEw4Jid0dkjYAiQs+pSE5MLtrZkJJ78bot/AzISizEsYuFMi19Aev//74Qe0pUj4BwlbgYRFH5IwZdQ5/bWhx4dh3TTbY77t28yEVkiWmJnwcloSRWMzE/a/pUHCByRsBRIWIWGJqQkX5zXR0tD+UJR5CZOAzNBRG2aiHkxtafqfMO39GdL+n+W+XalG/riBCYM17dMsNDWhlcT+rPbKXBabe8XQ1XG3rbH7u2DWzIQikFAzJCxCQiREQh2QsAgJkRAJdUDCIiREQiTUAQmLkBAJkVAHJCxCQiREQh2QsKhhwkkXCWdS9+NLJrS+Jx2w2knY/+di+KqrLCjSnnAwUl1nIUfq9SMNEq4XqmstIKRuwiYJB2ynut5kKb0Nb5Jw4CyHoznJaFxb6IRY1NUm8skBmyUUENUWehAvlKSthHu+XBBHL/3wf67Uh8u0mTDZV/037knCI6v6L+tJQqtyG3p9SZhMX++HrtWXhG8hoSwkREJ16wnVhyOuWUlC56jle6PQknA92pWQij0Wl9mqeSajloSKjo1H5Jsk2k6o7NmtSiby5J/QWk3Z9MZORcK1xPOcJ5Uj6IzMg3srEG+SeE98IyY1958MlQUkzxi+J/zM6sv7BsBXtwnJd7q8x2+D2VMf986HJouaAqOhMuQJtdqE5JL4dMtFyWpbJJfQjlzXVbexxFxXHQn0lXIJs+Zk5HZiztc9FEv44zMS37sl5BMrilo6Cb987fcuyy69geJ54x5EGzg+sck3YfK+W9TIeXy/bPjUoa/i0nyxcIcY326WVTNslMLvKM86rfxkaVlaHHTZgj305rrM6Za0K9F9/dOKSg4L377tCZxEOsb8nmG+I0wEzh2oxtLbV125i5UODgTeFpN9NzYvg3qWWYuNlQ+Pq98+0uzgMpt06eIahT/L28+0+te3bVQ+PzwK2nthzyt8NJ3mTc5rjd7acA6ef+hty6bJ2buOoElDyItNTqrqKuecNyesOqErX3j2Cp1Dd51hxuFDt52Tb8uXBIZ1ZazhN6RGNsG0HMwq25oGNcxGCDN1dZXDgnw7sappmAb7YTa5q66qTavBvl4GTOUHJPmrutyO90M73wF5p2xHL/qMQ4PDgk3lvt2B+8DKLz6SrNE+5HR3mdAL9KcjCej6msQCPeOOaPj1nxjWTL7Ls/8TuvIBAAAAAAAAAAAAAAAAAAAAAAAAAHyof8t2pNK11x6vAAAAAElFTkSuQmCC",
@@ -17,18 +18,26 @@ const platformIcons = {
 };
 
 
-const PartyBlock = ({ party, sessionUser, myRequest }) => {
+const PartyBlock = ({ party, sessionUser, myRequest, joinedParty }) => {
 
     const history = useHistory();
     const dispatch = useDispatch();
 
     const [ display, setDisplay ] = useState(true);
 
+    const handleLeaveParty = (e) => {
+      e.preventDefault();
+      dispatch(deletePartyUser(sessionUser.id, party.id)).then(async (res) => {
+        dispatch(removeFromPartiesIBelongs(party.id));
+        setDisplay('none');
+      })
+    }
+
 
     const handleRemoveRequest = (e) => {
         e.preventDefault();
         if (sessionUser) {
-              alert('request deleted!');
+              // alert('request deleted!');
               const partyId = e.target.id
               return dispatch(deletePartyRequest(sessionUser.id, partyId)).then(async (res) => {
                 setDisplay('none');
@@ -83,6 +92,18 @@ const PartyBlock = ({ party, sessionUser, myRequest }) => {
                         onClick={handleRemoveRequest}
                         >
                         Remove request
+                        </button>
+                      ) : null
+                    }
+                    { joinedParty ?
+                      (
+                        <button
+                        id={party.id}
+                        type="button"
+                        className="party-detail-remove-from-party-btn"
+                        onClick={handleLeaveParty}
+                        >
+                        Leave party
                         </button>
                       ) : null
                     }

@@ -70,7 +70,7 @@ const PartyDetail = () => {
   const handleDeleteMember = e => {
     e.preventDefault();
     if (sessionUser) {
-      alert("Member deleted!");
+      // alert("Member deleted!");
       const userId = e.target.id;
       console.log(userId)
       return dispatch(deletePartyUser(userId, partyId));
@@ -80,14 +80,14 @@ const PartyDetail = () => {
   const handleRequest = (e) => {
     e.preventDefault();
     if (sessionUser) {
-      alert("request sent!");
+      // alert("request sent!");
       return dispatch(sendPartyRequest(sessionUser.id, partyId));
     } else history.push(`/login`);
   };
 
   const handleRemoveRequest = (e) => {
     if (sessionUser) {
-      alert("request deleted!");
+      // alert("request deleted!");
       return dispatch(deletePartyRequest(sessionUser.id, partyId)).then(
         async (res) => {
           setRequested(false);

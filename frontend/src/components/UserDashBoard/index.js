@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./UserDashBoard.css";
-import { fetchPartyRequests, fetchMyParties } from "../../store/session";
+import { fetchPartyRequests, fetchMyParties, fetchAllPartiesIBelonges } from "../../store/session";
 import PartyBlock from "./PartyBlock";
 
 
@@ -11,6 +11,7 @@ const UserDashBoard = () => {
   const sessionUser = useSelector((state) => state.session.user);
   const myRequests = useSelector((state) => state.session.myRequests);
   const myParties = useSelector((state) => state.session.myParties);
+  const partiesIBelongs = useSelector((state) => state.session.partiesIBelongs)
 
   console.log(myParties)
 
@@ -18,6 +19,7 @@ const UserDashBoard = () => {
         if (sessionUser) {
           dispatch(fetchMyParties(sessionUser.id));
           dispatch(fetchPartyRequests(sessionUser.id));
+          dispatch(fetchAllPartiesIBelonges(sessionUser.id));
         }
         window.scrollTo(0, 0);
     }, [sessionUser]);
@@ -27,6 +29,11 @@ const UserDashBoard = () => {
     for (const party in myRequests) {
         pendingRequests.push(myRequests[party]);
     }
+
+    const joinedParties = [];
+    for (const party in partiesIBelongs) {
+      joinedParties.push(partiesIBelongs[party]);
+  }
 
     const partiesIHosted = [];
     // turn data back to array
@@ -62,7 +69,19 @@ const UserDashBoard = () => {
           <h2>Joined parties:</h2>
         </div>
 
+        {joinedParties.length ?
+          joinedParties.map((party) => {
+            return (
+              <PartyBlock
+                party={party}
+                sessionUser={sessionUser}
+                key={party.id}
+                joinedParty={true}
+              />
+            );
+          }) : <p>No party here...</p>
 
+          }
 
       </div>
       <hr/>

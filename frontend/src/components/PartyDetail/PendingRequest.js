@@ -11,7 +11,7 @@ const PendingRequest = ({ user, sessionUser, partyId }) => {
     const handleAccept = e => {
         e.preventDefault();
         if (sessionUser) {
-          alert(`You have declined ${user.username}'s request.`);
+          // alert(`You have declined ${user.username}'s request.`);
           return dispatch(acceptPartyUser(user.id, partyId)).then(async (res) => {
             setDisplay('none');
           });
